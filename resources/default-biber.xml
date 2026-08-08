@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<layout>
+    <composite x="170##x_scale##" y="20##y_scale##" name="date_and_time">
+        <component type="datetime" name="date_date" x="0##x_scale##" y="0##y_scale##" format="%d.%m.%Y" size="20##s_scale##" align="right"/>
+        <component type="datetime" name="date_time" x="0##x_scale##" y="24##y_scale##" format="%H:%M:%S.%f" truncate="5" size="32##s_scale##" align="right"/>
+    </composite>
+
+    <composite x="20##x_scale##" y="1350##y_scale##" name="big_mph">
+        <component type="metric_unit" metric="speed" units="speed" size="16##s_scale##">km/h</component>
+        <component type="metric" x="0##x_scale##" y="0##y_scale##" metric="speed" units="speed" dp="0" size="160##s_scale##" />
+    </composite>
+
+    <component type="chart" name="gradient_chart" x="230##x_scale##" y="1437##y_scale##"/>
+
+    <translate x="2200##x_scale##" y="1100##y_scale##">
+        <component type="cairo_circuit_map" name="cairo_circuit_map" fill="255,255,255" size="384##s_scale##"  rotate="##rotation##"/>
+    </translate>
+</layout>

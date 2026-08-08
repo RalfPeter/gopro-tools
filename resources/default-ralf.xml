@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<layout>
+    <composite x="170##x_scale##" y="20##y_scale##" name="date_and_time">
+        <component type="datetime" name="date_date" x="0" y="0" format="%d.%m.%Y" size="20##s_scale##" align="right"/>
+        <component type="datetime" name="date_time" x="0" y="24##y_scale##" format="%H:%M:%S.%f" truncate="5" size="32##s_scale##" align="right"/>
+    </composite>
+
+    <composite x="2430##x_scale##" y="-10##y_scale##" name="gps_info">
+        <frame name="gps-lock" x="226##x_scale##" y="24##y_scale##" width="32##x_scale##" height="32##y_scale##" bg="0,0,0,128" cr="5" opacity="0.4">
+            <component type="gps-lock-icon" size="32##s_scale##"/>
+         </frame>
+
+        <composite y="35##y_scale##">
+            <component type="text" x="0" y="0" size="16##s_scale##" align="left">GPS</component>
+            <component type="text" x="0" y="24##y_scale##" size="16##s_scale##" align="left">Lat: </component>
+            <component type="text" x="135##x_scale##" y="24##y_scale##" size="16##s_scale##" align="left">Lon: </component>
+            <component type="metric" x="125##x_scale##" y="24##y_scale##" metric="lat" dp="6" size="20##s_scale##" align="right" cache="False"/>
+            <component type="metric" x="255##x_scale##" y="24##y_scale##" metric="lon" dp="6" size="20##s_scale##" align="right" cache="False"/>
+        </composite>
+    </composite>
+
+    <translate x="0" y="1250##y_scale##">
+        <composite x="20##x_scale##" y="0" name="big_mph">
+            <component type="metric" x="0" y="0" metric="speed" units="speed" dp="0" size="160##s_scale##" />
+        </composite>
+
+        <composite x="16##x_scale##" y="180##y_scale##" name="altitude">
+            <component type="icon" x="0" y="0" file="mountain.png" size="64##s_scale##"/>
+            <component type="text" x="70##x_scale##" y="0" size="20##s_scale##">Höhe</component>
+            <component type="metric" x="70##x_scale##" y="18##y_scale##" metric="alt" dp="0" size="32##s_scale##" />
+            <component type="metric-unit" x="140##x_scale##" y="32##y_scale##" metric="alt" units="alt" size="16##s_scale##" align="left">{:~P}</component>
+        </composite>
+
+        <composite x="220##x_scale##" y="180##y_scale##" name="gradient">
+            <component type="icon" x="0" y="0" file="slope-triangle.png" size="64##s_scale##"/>
+            <component type="text" x="70##x_scale##" y="0" size="20##s_scale##">Steigung</component>
+            <component type="metric" x="70##x_scale##" y="18##y_scale##" metric="gradient" dp="0" size="32##s_scale##" />
+            <component type="metric-unit" x="120##x_scale##" y="32##y_scale##" metric="gradient" size="16##s_scale##" align="left">%</component>
+        </composite>
+
+        <!--<component type="chart" x="400##x_scale##" y="180##y_scale##" metric="speed" units="kph" seconds="##laenge video in sekunden##" />-->
+    </translate>
+
+    <translate x="2284##x_scale##" y="1114##y_scale##">
+        <frame width="384##x_scale##" height="384##y_scale##" outline="255,0,0" opacity="0.8" >
+            <!--<component type="circuit_map"        name="circuit_map"          size="384##x_scale##"/>-->
+            <!--<component type="journey_map"        name="journey_map"          size="384##x_scale##" corner_radius="35"/>-->
+            <!--<component type="moving_journey_map" name="moving_journey_map"   size="384##x_scale##" zoom="16" />-->
+            <!--<component type="cairo_circuit_map"  name="cairo_circuit_map"    size="384##x_scale##" fill="255,255,255" rotate="##rotation##" />-->
+            <!--<component type="moving_map"         name="moving_map"           size="384" zoom="17" corner_radius="35" />-->
+            <component type="moving_map" name="moving_map" size="384##x_scale##" zoom="16" rotate="true" />
+        </frame>
+    </translate>
+
+</layout>

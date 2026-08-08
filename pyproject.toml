@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gopro-tools"
+version = "1.0.0"
+description = "GoPro Telemetry Desktop Applications & Pipelines (gopro2file, gopro2overlay)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "GPL-3.0-or-later" }
+authors = [
+    { name = "RalfPeter", email = "ralfpeter.bergheim@gmail.com" }
+]
+keywords = [
+    "gopro",
+    "telemetry",
+    "overlay",
+    "gui",
+    "pyside6",
+    "ffmpeg",
+    "gpmf"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video"
+]
+
+# Abhängigkeiten: Das eigene Framework gpmf-tools sowie PySide6
+dependencies = [
+    "gpmf-tools",
+    "PySide6"
+]
+
+[project.urls]
+Homepage = "https://github.com/RalfPeter/gopro-tools"
+Documentation = "https://github.com/RalfPeter/gopro-tools#readme"
+Repository = "https://github.com/RalfPeter/gopro-tools.git"
+"Framework Suite (gpmf-tools)" = "https://github.com/RalfPeter/gpmf-tools"
+
+# Konsolen- und GUI-Startbefehle für das System
+[project.scripts]
+gopro2file = "gui_gopro2file:main"
+gopro2overlay = "gui_gopro2overlay:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

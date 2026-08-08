@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ThumbnailMapSettingsDialog</class>
+ <widget class="QDialog" name="ThumbnailMapSettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>415</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Generierungs- &amp; Karten-Optionen</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <widget class="QGroupBox" name="grp_thumbnails">
+     <property name="title">
+      <string>Vorschaubilder (Thumbnails)</string>
+     </property>
+     <layout class="QVBoxLayout" name="vLayoutThumb">
+      <item>
+       <widget class="QCheckBox" name="chkbx_thumb">
+        <property name="text">
+         <string>Thumbnail aus Video erstellen [--thumb]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkbx_overwrite_thumb">
+        <property name="text">
+         <string>Wenn vorhanden überschreiben [--overwrite_thumb]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="hLayoutDelta">
+        <item>
+         <widget class="QLabel" name="lbl_delta">
+          <property name="text">
+           <string>Zeit-Delta für Thumbnail [--delta]:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="txt_delta"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grp_generation">
+     <property name="title">
+      <string>Erstellung Karten als JPEG und HTML</string>
+     </property>
+     <layout class="QVBoxLayout" name="vLayoutGeneration">
+      <item>
+       <widget class="QCheckBox" name="chkbx_generatemap">
+        <property name="text">
+         <string>JPEG aus GPX generieren [--generatemap]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkbx_generatehtml">
+        <property name="text">
+         <string>HTML aus GPX generieren [--generatehtml]</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grp_map_canvas">
+     <property name="title">
+      <string>Karten-Dimensionen + Styling</string>
+     </property>
+     <layout class="QFormLayout" name="formLayoutMap">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbl_mapwidth">
+        <property name="text">
+         <string>Kartenbreite in Pixel [--mapwidth]:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="spin_mapwidth">
+        <property name="minimum">
+         <number>640</number>
+        </property>
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lbl_mapheight">
+        <property name="text">
+         <string>Kartenhöhe in Pixel [--mapheight]:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="spin_mapheight">
+        <property name="minimum">
+         <number>480</number>
+        </property>
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lbl_color_track">
+        <property name="text">
+         <string>Farbe für Tracks [--color_track]:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="ColorButton" name="colorbtn_track" native="true"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="lbl_color_route">
+        <property name="text">
+         <string>Farbe für Routen [--color_route]:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="ColorButton" name="colorbtn_route" native="true"/>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="chkbx_endingpoint">
+        <property name="text">
+         <string>Letzten Punkt (Route/Track) als Marker zeichnen [--endingpoint]</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ColorButton</class>
+   <extends>QWidget</extends>
+   <header>colorbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>ThumbnailMapSettingsDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ThumbnailMapSettingsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

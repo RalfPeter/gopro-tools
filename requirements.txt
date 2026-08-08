@@ -1,0 +1,63 @@
+#+ aiohappyeyeballs
+#+ aiohttp
+#+ aiosignal
+#+ altgraph
+#+ attrs
+#+ branca
+#+ certifi
+#+ charset-normalizer
+#+ cytoolz
+#+ fitdecode
+#+ flexcache
+#+ flexparser
+folium
+#+ frozenlist
+#+ geographiclib
+geotiler
+gopro-overlay
+gpxpy
+#+ idna
+#+ jinja2
+lxml
+#+ MarkupSafe
+#+ multidict
+nest-asyncio
+numpy
+#+ numpy-typing-compat
+#+ optype
+overpy
+#+ packaging
+pandas
+pandas-stubs
+#+ pefile
+pillow
+#+ pint
+pip
+#+ platformdirs
+#+ progressbar2
+#+ propcache
+pycairo
+pyexiv2
+pyinstaller
+#+ pyinstaller-hooks-contrib
+#+ python-dateutil
+#+ python-utils
+#+ pywin32-ctypes
+pyside6
+pyside6-addons
+pyside6-essentials
+pyyaml
+requests
+scipy
+scipy-stubs
+setuptools<81
+#+ six
+#+ sqlitedict
+#+ toolz
+#+ typing-extensions
+tzdata
+tzlocal
+#+ urllib3
+#+ wheel
+#+ xyzservices
+#+ yarl

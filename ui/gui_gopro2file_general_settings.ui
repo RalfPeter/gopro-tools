@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GeneralSettingsDialog</class>
+ <widget class="QDialog" name="GeneralSettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>503</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Allgemeine Optionen</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <widget class="QGroupBox" name="grp_system">
+     <property name="title">
+      <string>System + Anwendung</string>
+     </property>
+     <layout class="QVBoxLayout" name="vLayoutSystem">
+      <item>
+       <widget class="QCheckBox" name="chkbx_recursive">
+        <property name="text">
+         <string>Unterverzeichnisse für Dateisuche einschließen [--recursive]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkbx_clean">
+        <property name="text">
+         <string>Verzeichnis nach Verarbeitung bereinigen [--clean]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkbx_nocache">
+        <property name="text">
+         <string>OSM-Kachel-Caching deaktivieren [--nocache]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkbx_verbose">
+        <property name="text">
+         <string>Erhöhte Ausgabeverbosity [--verbose]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkbx_log">
+        <property name="text">
+         <string>In Datei loggen [--log]</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grp_data_source">
+     <property name="title">
+      <string>Datenquellen + Filter</string>
+     </property>
+     <layout class="QVBoxLayout" name="vLayoutSource">
+      <item>
+       <widget class="QCheckBox" name="chkbx_goproonly">
+        <property name="text">
+         <string>Nur GoPro-Videos bearbeiten [--goproonly]</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkbx_binary">
+        <property name="text">
+         <string>Telemtrie-Daten aus Binärdatei lesen [--binary]</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grp_geocoding">
+     <property name="title">
+      <string>Foto-Geokodierung + GeoNames</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayoutGeo">
+      <item row="0" column="0" colspan="2">
+       <widget class="QCheckBox" name="chkbx_geo">
+        <property name="text">
+         <string>Fotos im Video-Verzeichnis geokodieren [--geo]</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QCheckBox" name="chkbx_geoonly">
+        <property name="text">
+         <string>Nur Fotos im Video-Verzeichnis geokodieren [--geoonly]</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="chkbx_geonamesupdate">
+        <property name="text">
+         <string>GeoNames-Daten bei Bedarf aktualisieren [--geonamesupdate]</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="lbl_keyinterval">
+        <property name="text">
+         <string>Aktualisierungsintervall für GeoNames [--geonamesintervall]: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSpinBox" name="spin_keyintervall">
+        <property name="minimum">
+         <number>30</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>GeneralSettingsDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>GeneralSettingsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# PyCharm / IDE
+.idea/
+.vscode/
+
+# Logs & temporäre Testdateien
+*.log
+*.tmp
+
+# System-Dateien
+Thumbs.db
+
+# Dokumentation / Interne Ordner
+/doc/
+
+# Data & Cache (Geo-Daten, Datenbanken, Cache-Dateien)
+/data/
+*.pickle
+*.sqlite
+
+# Anwendungsdaten, Configs & Crashlogs
+*.yaml
+*.cfg
+*crashlog.txt
+content.txt
+
