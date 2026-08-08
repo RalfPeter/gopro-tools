@@ -27,6 +27,7 @@ Thumbs.db
 *.sqlite
 
 # Anwendungsdaten, Configs & Crashlogs
+*.png
 *.yaml
 *.cfg
 *crashlog.txt

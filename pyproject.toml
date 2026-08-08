@@ -33,6 +33,7 @@ classifiers = [
 
 # Abhängigkeiten: Das eigene Framework gpmf-tools sowie PySide6
 dependencies = [
+    "gopro-overlay @ git+https://github.com/RalfPeter/gopro-overlay-patched.git@main",
     "gpmf-tools",
     "PySide6"
 ]
@@ -45,8 +46,20 @@ Repository = "https://github.com/RalfPeter/gopro-tools.git"
 
 # Konsolen- und GUI-Startbefehle für das System
 [project.scripts]
+# GUI Einstiegspunkte
 gopro2file = "gui_gopro2file:main"
 gopro2overlay = "gui_gopro2overlay:main"
 
+# CLI Einstiegspunkte
+prg-gopro2file = "prg_gopro2file:main"
+prg-gopro2overlay = "prg_gopro2overlay:main"
+prg-desc2gpx = "prg_desc2gpx:main"
+prg-gopro2gpmf = "prg_gopro2gpmf:main"
+prg-gpmf2gpx = "prg_gpmf2gpx:main"
+prg-gpx2map = "prg_gpx2map:main"
+
 [tool.setuptools.packages.find]
-where = ["."]
+where = [".", "src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.ico"]

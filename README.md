@@ -25,6 +25,28 @@ Skripte für die Stapelverarbeitung auf der Kommandozeile ohne Benutzeroberfläc
 
 ---
 
+## Modifikationen an `gopro-overlay` (Upstream-Patches)
+
+Dieses Projekt nutzt eine angepasste Version von `time4tea/gopro-dashboard-overlay`. Folgende Optimierungen wurden für die Integration in die GUI und die Windows-Ausführung vorgenommen:
+
+1. **Vermeidung von Konsolen-Popups unter Windows (`creationflags`)**:
+   - Den Aufrufen von `subprocess.Popen` und `subprocess.run` wurden die Flags `creationflags=subprocess.CREATE_NO_WINDOW` und `stdin=subprocess.PIPE` hinzugefügt. Dies verhindert, dass bei jedem FFMPEG/FFprobe-Aufruf unter Windows ein kurzes Konsolenfenster aufpoppt.
+
+2. **GUI-Logging & Fortschrittsanzeige (`out`-Parameter)**:
+   - In `GoproRecording.load_data()` wurde ein optionaler `out`-Parameter integriert. Wenn dieser gesetzt ist, werden die Lade-Fortschritte an die GUI übergeben, anstatt die CLI-Fortschrittsleiste (`ProgressBarProgress`) zu zeichnen.
+
+3. **Verfeinerte Fehlerbehandlung (Exception Handling)**:
+   - Beim Ausführen von Subprozessen (`InProcessExecution`) werden fehlende Binaries (`FileNotFoundError`) sowie abgebrochene Pipes (`BrokenPipeError`) sauber abgefangen und in lesbare `IOError`-Meldungen mit Angabe des betroffenen Befehls umgewandelt.
+
+4. **Erweiterung des `VideoStream`-Modells**:
+   - Das Dataclass-Modell `VideoStream` wurde um die Felder `codec` (str) und `bit_rate` (int) erweitert, um Video-Metadaten in der Benutzeroberfläche detaillierter anzeigen zu können.
+
+5. **Stabilität & Typisierung**:
+   - Absicherung gegen Mehrfachschließen von Streams (`process.stdin.closed`).
+   - Fehlende Rückgabewerte in Grenzfällen explizit als `None` zurückgegeben.
+
+---
+
 ## 🛠️ Installation
 
 ### Voraussetzungen
