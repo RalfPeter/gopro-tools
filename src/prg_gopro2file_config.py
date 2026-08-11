@@ -1,22 +1,25 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 04-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : prg_gopro2file_config.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : prg_gopro2file_config.py
+#  Version           : 2.0
+#  Beschreibung      : Keine Beschreibung verfügbar.
+#  Zeilen            : 226
+#  Abhängigkeiten    : argparse, dataclasses, datetime, typing
+#  Klassen           : GoProParameters
 # ------------------------------------------------------------------------------
-#  Klassen:
-#     GoProParameters
-#  Public Methods:
-#     GoProParameters.check_geonames_update(force_update) → Prüft, ob das GeoNames-Update basierend auf dem Intervall fällig ist.
-#     GoProParameters.update_geonames_timestamp() → Setzt den Zeitstempel auf 'jetzt' und sichert ihn direkt in der YAML-Datei.
-#     GoProParameters.parse_args()        → Parst alle Kommandozeilenparameter (geerbt + spezifisch) in diese Instanz.
+#  Public Methoden:
+#    GoProParameters                                      → Parameter-Klasse speziell für das gopro2file Tool.
+#      check_geonames_update(bool)                        → Prüft, ob das GeoNames-Update basierend auf dem Intervall fällig ist.
+#      update_geonames_timestamp()                        → Setzt den Zeitstempel auf 'jetzt' und sichert ihn direkt in der YAML-Datei.
+#      parse_args()                                       → Parst alle Kommandozeilenparameter (geerbt + spezifisch) in diese Instanz.
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 from __future__ import annotations
@@ -25,8 +28,8 @@ from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass, fields, field
 import datetime
 
-from utils_config import BaseParameters
-from gpmf_const import MAP_WIDTH_PIXELS, MAP_HEIGHT_PIXELS, TRACK_DEFAULT_COLOR, ROUTE_DEFAULT_COLOR, THUMBNAIL_START_OFFSET_SEC, MAX_TIME_DIFFERENCE_SEC, MAX_EVENT_DISTANCE_METER
+from rpg_utils.utils_config import BaseParameters
+from rpg_gpmf.gpmf_const import MAP_WIDTH_PIXELS, MAP_HEIGHT_PIXELS, TRACK_DEFAULT_COLOR, ROUTE_DEFAULT_COLOR, THUMBNAIL_START_OFFSET_SEC, MAX_TIME_DIFFERENCE_SEC, MAX_EVENT_DISTANCE_METER
 
 # Konstante für das Datumsformat (aus Ihrem utils_datetime Framework)
 ISO_FORMAT: str = "%Y-%m-%d %H:%M:%S"  # Falls abweichend, Ihr ISO_FORMAT eintragen
@@ -37,11 +40,8 @@ ISO_FORMAT: str = "%Y-%m-%d %H:%M:%S"  # Falls abweichend, Ihr ISO_FORMAT eintra
 @final
 @dataclass
 class GoProParameters(BaseParameters):
-    """Parameter-Klasse speziell für das gopro2file Tool.
+    """Parameter-Klasse speziell für das gopro2file Tool."""
 
-    Verwaltet sämtliche CLI-Optionen für den GoPro-Metadatenexport, die Ratenbegrenzung
-    für GeoNames-API-Abfragen sowie die Ausgabeformate.
-    """
     # mapsize und inputfiles werden von der Persistierung ausgeschlossen
     EXCLUDED_PERSISTENCE_FIELDS: ClassVar[set[str]] = {
         "mapsize",
@@ -118,7 +118,11 @@ class GoProParameters(BaseParameters):
 
     # --------------------------------------------------------------------------------
     def __post_init__(self) -> None:
-        """Initialisiert berechnete Verbund-Felder und Listen-Defaults sicher."""
+        """Initialisiert berechnete Verbund-Felder und Listen-Defaults sicher.
+        
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         if not self.inputpaths:
             self.inputpaths = ['./']
 
@@ -144,7 +148,11 @@ class GoProParameters(BaseParameters):
 
     # --------------------------------------------------------------------------------
     def update_geonames_timestamp(self) -> None:
-        """Setzt den Zeitstempel auf 'jetzt' und sichert ihn direkt in der YAML-Datei."""
+        """Setzt den Zeitstempel auf 'jetzt' und sichert ihn direkt in der YAML-Datei.
+        
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         self.geonames_last_update = datetime.datetime.now().strftime(ISO_FORMAT)
 
     # --------------------------------------------------------------------------------
@@ -167,10 +175,10 @@ class GoProParameters(BaseParameters):
     # --------------------------------------------------------------------------------
     def parse_args(self) -> GoProParameters:
         """Parst alle Kommandozeilenparameter (geerbt + spezifisch) in diese Instanz.
-
-        :return: Das aktualisierte Instanzobjekt (Self).
-        :rtype: GoProParameters
+        
+        :return: (GoProParameters) Beschreibung des Rückgabewerts.
         """
+
         # F stellt alle Feldnamen als Attribute bereit (z. B. F.clean -> "clean")
         F = self.Fields
         class_defaults: dict[str, Any] = {f.name: f.default for f in fields(self)}

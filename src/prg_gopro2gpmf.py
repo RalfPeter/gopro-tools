@@ -1,29 +1,30 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 04-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : prg_gopro2gpmf.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : prg_gopro2gpmf.py
+#  Version           : 2.0
+#  Beschreibung      : Keine Beschreibung verfügbar.
+#  Zeilen            : 387
+#  Abhängigkeiten    : hashlib, pathlib, struct
 # ------------------------------------------------------------------------------
-#  Klassen:
-#    keine
-#  Public Methods:
-#     ceil4(n)                            → Rundet n auf das nächste Vielfache von 4 auf.
-#     read_devc_block_size(data, pos)     → Return total length of a DEVC block starting at pos, or 0 if invalid.
-#     extract_devc(file_path, clean, join) → Extract DEVC devc_lists from a (possibly broken) GoPro file by GPMF header math.
-#     extract_gpmd_chunks(file, out_file) → Keine Beschreibung.
-#     parse_gpmf_element(data, offset)    → Liest ein GPMF-Element ab offset und gibt seine Gesamtlänge zurück.
-#     extract_devc_raw(file, out_file)    → Keine Beschreibung.
-#     make_gpmf_atom(file, gpmf_bytes)    → Keine Beschreibung.
-#     make_udta_with_gpmf(file, gpmf_bytes) → Keine Beschreibung.
-#     extract_devc_clean(file, out_file)  → DEVC-Blöcke extrahieren, kaputte und doppelte Blöcke filtern.
-#     create_mp4_with_gpmf(video_file, devc_source, output_file) → Fügt einen GPMF-Track zu einem reparierten Video hinzu.
+#  Globale Funktionen:
+#    ceil4(int)                                           → Rundet n auf das nächste Vielfache von 4 auf.
+#    read_devc_block_size(bytes, int)                     → Return total length of a DEVC block starting at pos, or 0 if invalid.
+#    extract_devc(str, bool, bool)                        → Extract DEVC devc_lists from a (possibly broken) GoPro file by GPMF header math.
+#    extract_gpmd_chunks(Path, Path)                      → Kurzbeschreibung für extract_gpmd_chunks.
+#    parse_gpmf_element(bytes, int)                       → Liest ein GPMF-Element ab offset und gibt seine Gesamtlänge zurück.
+#    extract_devc_raw(Path, Path)                         → Kurzbeschreibung für extract_devc_raw.
+#    make_gpmf_atom(Path, bytes)                          → Kurzbeschreibung für make_gpmf_atom.
+#    make_udta_with_gpmf(Path, bytes)                     → GPMF Atom
+#    extract_devc_clean(Path, Path)                       → DEVC-Blöcke extrahieren, kaputte und doppelte Blöcke filtern.
+#    create_mp4_with_gpmf(str, devc_source, str)          → Fügt einen GPMF-Track zu einem reparierten Video hinzu.
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 import struct
@@ -33,18 +34,24 @@ from pathlib import Path
 
 # --------------------------------------------------------------------------------
 def ceil4(n: int) -> int:
-    """Rundet n auf das nächste Vielfache von 4 auf."""
+    """Rundet n auf das nächste Vielfache von 4 auf.
+    
+    :param n: (int) Beschreibung von n.
+    :return: (int) Beschreibung des Rückgabewerts.
+    """
+
     return (((n - 1) >> 2) + 1) << 2
 
 
 # --------------------------------------------------------------------------------
 def read_devc_block_size(data: bytes, pos: int) -> int:
+    """Return total length of a DEVC block starting at pos, or 0 if invalid.
+    
+    :param data: (bytes) Beschreibung von data.
+    :param pos: (int) Beschreibung von pos.
+    :return: (int) Beschreibung des Rückgabewerts.
     """
-    Return total length of a DEVC block starting at pos, or 0 if invalid.
 
-    GPMF element header: >4sBBH  (fourcc, type, size, repeat)
-    Total length = 8 (header) + ceil4(size * repeat)
-    """
     if pos + 8 > len(data):
         return 0
 
@@ -64,26 +71,13 @@ def read_devc_block_size(data: bytes, pos: int) -> int:
 # --------------------------------------------------------------------------------
 def extract_devc(file_path: str, clean: bool = True, join: bool = True) -> bytes | list[bytes]:
     """Extract DEVC devc_lists from a (possibly broken) GoPro file by GPMF header math.
-
-    This scans for the literal b"DEVC" and computes each block's size from the
-    GPMF header at that position (not from any MP4 atom length).
-
-    Args:
-        file_path: Input file to scan (MP4 or raw binary).
-        clean: If True, skip invalid devc_lists and drop exact duplicates (by hash).
-               If False, return every block whose header math is valid.
-        join:  If True, concatenate all returned devc_lists into a single bytestream.
-               If False, return a list of per-block bytes.
-
-    Returns:
-        bytes | list[bytes]: Either a single concatenated bytestream (join=True)
-        or a list of DEVC devc_lists (each starting at the DEVC header).
-
-    Notes:
-        - A DEVC block layout is: [4s fourcc][1B type][1B size][2B repeat][payload...]
-        - Payload length = ceil4(size * repeat). Total block size = 8 + payload_len.
-        - For nested content (typisch DEVC/STRM) gilt die gleiche Längenrechnung.
+    
+    :param file_path: (str) Beschreibung von file_path.
+    :param clean: (bool) Beschreibung von clean.
+    :param join: (bool) Beschreibung von join.
+    :return: (bytes | list[bytes]) Beschreibung des Rückgabewerts.
     """
+
     fd = Path(file_path)
     data = fd.read_bytes()
 
@@ -122,6 +116,12 @@ def extract_devc(file_path: str, clean: bool = True, join: bool = True) -> bytes
 
 # --------------------------------------------------------------------------------
 def extract_gpmd_chunks(file: Path, out_file: Path):
+    """Kurzbeschreibung für extract_gpmd_chunks.
+    
+    :param file: (Path) Beschreibung von file.
+    :param out_file: (Path) Beschreibung von out_file.
+    """
+
     with open(file, "rb") as fd:
         data = fd.read()
 
@@ -148,10 +148,13 @@ def extract_gpmd_chunks(file: Path, out_file: Path):
 
 # --------------------------------------------------------------------------------
 def parse_gpmf_element(data: bytes, offset: int) -> int:
+    """Liest ein GPMF-Element ab offset und gibt seine Gesamtlänge zurück.
+    
+    :param data: (bytes) Beschreibung von data.
+    :param offset: (int) Beschreibung von offset.
+    :return: (int) Beschreibung des Rückgabewerts.
     """
-    Liest ein GPMF-Element ab offset und gibt seine Gesamtlänge zurück.
-    Format: FourCC (4s), Type (B), Size (B), Repeat (H), Payload.
-    """
+
     if offset + 8 > len(data):
         return 0  # unvollständig
 
@@ -163,6 +166,12 @@ def parse_gpmf_element(data: bytes, offset: int) -> int:
 
 # --------------------------------------------------------------------------------
 def extract_devc_raw(file: Path, out_file: Path):
+    """Kurzbeschreibung für extract_devc_raw.
+    
+    :param file: (Path) Beschreibung von file.
+    :param out_file: (Path) Beschreibung von out_file.
+    """
+
     with open(file, "rb") as fd:
         data = fd.read()
     print(f"Dateilänge: {len(data)}")
@@ -206,6 +215,12 @@ def extract_devc_raw(file: Path, out_file: Path):
 
 # --------------------------------------------------------------------------------
 def make_gpmf_atom(file: Path, gpmf_bytes: bytes):
+    """Kurzbeschreibung für make_gpmf_atom.
+    
+    :param file: (Path) Beschreibung von file.
+    :param gpmf_bytes: (bytes) Beschreibung von gpmf_bytes.
+    """
+
     size = 8 + len(gpmf_bytes)
     temp_gpmf = size.to_bytes(4, 'big') + b'GPMF' + gpmf_bytes
 
@@ -216,6 +231,12 @@ def make_gpmf_atom(file: Path, gpmf_bytes: bytes):
 # --------------------------------------------------------------------------------
 def make_udta_with_gpmf(file: Path, gpmf_bytes: bytes):
     # GPMF Atom
+    """GPMF Atom
+    
+    :param file: (Path) Beschreibung von file.
+    :param gpmf_bytes: (bytes) Beschreibung von gpmf_bytes.
+    """
+
     gpmf_size = 8 + len(gpmf_bytes)
     gpmf_atom = gpmf_size.to_bytes(4, "big") + b"GPMF" + gpmf_bytes
 
@@ -229,7 +250,12 @@ def make_udta_with_gpmf(file: Path, gpmf_bytes: bytes):
 
 # --------------------------------------------------------------------------------
 def extract_devc_clean(file: Path, out_file: Path):
-    """DEVC-Blöcke extrahieren, kaputte und doppelte Blöcke filtern."""
+    """DEVC-Blöcke extrahieren, kaputte und doppelte Blöcke filtern.
+    
+    :param file: (Path) Beschreibung von file.
+    :param out_file: (Path) Beschreibung von out_file.
+    """
+
     with open(file, "rb") as fd:
         data = fd.read()
     print(f"Dateilänge: {len(data)} Bytes")
@@ -280,16 +306,25 @@ def extract_devc_clean(file: Path, out_file: Path):
 
 # --------------------------------------------------------------------------------
 def create_mp4_with_gpmf(video_file: str, devc_source, output_file: str) -> None:
+    """Fügt einen GPMF-Track zu einem reparierten Video hinzu.
+    
+    :param video_file: (str) Beschreibung von video_file.
+    :param devc_source: (Any) Beschreibung von devc_source.
+    :param output_file: (str) Beschreibung von output_file.
+    :return: (None) Beschreibung des Rückgabewerts.
     """
-    Fügt einen GPMF-Track zu einem reparierten Video hinzu.
 
-    Args:
-        video_file: Pfad zur reparierten MP4
-        devc_source: entweder Pfad zur Datei mit DEVC-Blöcken oder Liste von Bytes-Objekten
-        output_file: Pfad zur finalen MP4
-    """
     # --- Minimaler moov-Track für GPMF ---
+    
+    # --------------------------------------------------------------------------------
     def make_box(type_bytes: bytes, payload: bytes) -> bytes:
+        """Kurzbeschreibung für make_box.
+        
+        :param type_bytes: (bytes) Beschreibung von type_bytes.
+        :param payload: (bytes) Beschreibung von payload.
+        :return: (bytes) Beschreibung des Rückgabewerts.
+        """
+
         size = 8 + len(payload)
         return size.to_bytes(4, "big") + type_bytes + payload
 

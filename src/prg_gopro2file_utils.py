@@ -1,40 +1,44 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 04-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : prg_gopro2file_utils.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : prg_gopro2file_utils.py
+#  Version           : 2.0
+#  Beschreibung      : Keine Beschreibung verfügbar.
+#  Zeilen            : 162
+#  Abhängigkeiten    : Keine
 # ------------------------------------------------------------------------------
-#  Klassen:
-#    keine
-#  Public Methods:
-#     print_video_metadata(video_file, verbose) → Print all Metadata
-#     write_video_datafiles(gopro_file, params) → Write files with telemetry data
-#     rename_videofile(videofile, pattern) → rename a video file from name to a new created file name
+#  Globale Funktionen:
+#    print_video_metadata(VideoFile, bool)                → Print all Metadata
+#    write_video_datafiles(GoProFile, 
+#                          GoProParameters)               → Write files with telemetry data
+#    rename_videofile(VideoFile, str)                     → rename a video file from name to a new created file name
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
-from utils_core import log_to_callback, CallbackTag as Tag, TRENNER
-from utils_string import StringUtils as Str
-from gpmf_const import SUFFIX_ZIP, GPS_PRINT_FORMAT, MAX_GPS_DISTANCE_METER
-from gpmf_meta_video import VideoFile
-from gpmf_meta_gopro import GoProFile
-from gpmf_klv_points import AcclItems, GyroItems
-from gpmf_writer import GoProFileWrite
-from gpx_utils import haversine
+from rpg_utils.utils_core import log_to_callback, CallbackTag as Tag, TRENNER
+from rpg_utils.utils_string import StringUtils as Str
+from rpg_gpmf.gpmf_const import SUFFIX_ZIP, GPS_PRINT_FORMAT, MAX_GPS_DISTANCE_METER
+from rpg_gpmf.gpmf_meta_video import VideoFile
+from rpg_gpmf.gpmf_meta_gopro import GoProFile
+from rpg_gpmf.gpmf_klv_points import AcclItems, GyroItems
+from rpg_gpmf.gpmf_writer import GoProFileWrite
+from rpg_gpx.gpx_utils import haversine
 from prg_gopro2file_map import GGPXMapProcessor
 from prg_gopro2file_config import GoProParameters
 
 
 # --------------------------------------------------------------------------------
 def print_video_metadata(video_file: VideoFile, verbose: bool = False):
-    """
-    Print all Metadata
+    """Print all Metadata
+    
+    :param video_file: (VideoFile) Beschreibung von video_file.
+    :param verbose: (bool) Beschreibung von verbose.
     """
 
     if verbose:
@@ -87,8 +91,11 @@ def print_video_metadata(video_file: VideoFile, verbose: bool = False):
 
 # --------------------------------------------------------------------------------
 def write_video_datafiles(gopro_file: GoProFile, params: GoProParameters) -> bool | None:
-    """
-    Write files with telemetry data
+    """Write files with telemetry data
+    
+    :param gopro_file: (GoProFile) Beschreibung von gopro_file.
+    :param params: (GoProParameters) Beschreibung von params.
+    :return: (bool | None) Beschreibung des Rückgabewerts.
     """
 
     if gopro_file is None or not gopro_file.has_gpmf or gopro_file.klvlist is None:
@@ -154,9 +161,13 @@ def write_video_datafiles(gopro_file: GoProFile, params: GoProParameters) -> boo
 
 # --------------------------------------------------------------------------------
 def rename_videofile(videofile: VideoFile, pattern: str) -> bool:
+    """rename a video file from name to a new created file name
+    
+    :param videofile: (VideoFile) Beschreibung von videofile.
+    :param pattern: (str) Beschreibung von pattern.
+    :return: (bool) Beschreibung des Rückgabewerts.
     """
-    rename a video file from name to a new created file name
-    """
+
     old_name = videofile.name
     result = videofile.rename(pattern, videofile.gps_datetime, videofile.user)
     prefix = 'GoPro-Video' if isinstance(videofile, GoProFile) else 'Video'

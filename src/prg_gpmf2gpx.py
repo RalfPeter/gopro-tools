@@ -1,32 +1,30 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 07-08-2026
-# Ralf Peter <ralfpeter61@email.de>
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
 #  Programm          : prg_gpmf2gpx.py
-#  Version           : 2.0
-#  Beschreibung      : Keine Beschreibung verfügbar.
-#  Zeilen            : 99
+#  Version           : 3.0
+#  Beschreibung      : Generierung einer GPX aus gpmf binary Dateien.
+#  Zeilen            : 97
 #  Abhängigkeiten    : pathlib, sys
-#  Eigene Frameworks : geo, gpmf, gpx, utils
+#  Eigene Frameworks : rpg_geo, rpg_gpmf, rpg_gpx, rpg_utils
 # ------------------------------------------------------------------------------
 #  Globale Funktionen:
-#    main(params)                                         → Generierung einer GPX aus gpmf binary Dateien.
+#    main(GoProParameters)                                → Generierung einer GPX aus gpmf binary Dateien.
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 import sys
 from pathlib import Path
 
-from utils_core import TRENNER, AppLogger, fatal, CallbackTag as Tag, log_to_callback
-from utils_filepath import PathUtils
-from gpmf_meta_gopro import GpmfFiles, GpmfFile, ExtractionMethod, NoGpmfError
-from gpmf_writer import GoProFileWrite
-import gpmf_geo as geoinfo
+from rpg_utils import TRENNER, AppLogger, fatal, CallbackTag as Tag, log_to_callback, PathUtils
+from rpg_gpmf import GpmfFiles, GpmfFile, ExtractionMethod, NoGpmfError, GoProFileWrite, gpmf_geo as geoinfo
+
 from prg_gopro2file_map import GGPXMapProcessor
 from prg_gopro2file_config import GoProParameters
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 07-08-2026
-# Ralf Peter <ralfpeter61@email.de>
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
@@ -10,49 +10,25 @@
 #  Version           : 2.0
 #  Beschreibung      : Keine Beschreibung verfügbar.
 #  Zeilen            : 674
-#  Abhängigkeiten    : PIL, abc, contextlib, dataclasses, datetime, folium, functools, hashlib, math, pathlib, re
+#  Abhängigkeiten    : PIL, abc, contextlib, dataclasses, datetime, folium, functools, geotiler, hashlib, math, pathlib
+#                     re
 #  Klassen           : GeoBounds, TileCache, GpxMapCalculator, GpxMapGeneratorBase (ABC), GpxMapGeneratorHtml
 #                     GpxMapGeneratorJPG, GGPXMapProcessor
 # ------------------------------------------------------------------------------
 #  Public Methoden:
 #    GpxMapCalculator                                     → Berechnet die Bounding Box und den optimalen Zoom-Level für eine Menge von Geo-Punkten.
-#      get_bounds(track_routes, verbose)                  → Berechnet die Bounding Box (min_lon, min_lat, max_lon, max_lat) aller Punkte.
-#      calculate_zoom_level(bounds, map_size, 
-#                           min_lat_diff, min_lon_diff)   → Berechnet den Zoom-Level, um die Bounding Box in die Kartengröße einzupassen.
+#      get_bounds(list[GPXTrackInfo], bool)               → Berechnet die Bounding Box (min_lon, min_lat, max_lon, max_lat) aller Punkte.
+#      calculate_zoom_level(GeoBounds, tuple[int, 
+#                           int], float, float)           → Berechnet den Zoom-Level, um die Bounding Box in die Kartengröße einzupassen.
+#
 #    GpxMapGeneratorBase                                  → Abstrakte Basisklasse für die Generierung von GPX-Karten.
 #      generate()                                         → Steuert die Generierung aller Karten für Tracks und Routen.
+#
 #    GGPXMapProcessor                                     → Koordiniert den gesamten Prozess des Ladens von GPX-Daten und der Generierung von.
 #      process_gpx_jpeg()                                 → Führt den gesamten Prozess der Kartengenerierung durch.
 #      process_gpx_html()                                 → Führt den gesamten Prozess der Kartengenerierung durch.
 # ------------------------------------------------------------------------------
-#  Interne Methoden:
-#    TileCache                                            → GeoTiler-kompatibler Tile-Cache mit persistentem Dateisystem-Backend.
-#      __init__(self, cache_dir)                          → Initialisiert den TileCache und legt das Cache-Verzeichnis an.
-#      _tile_path(url)                                    → Erzeugt einen Dateipfad für eine Tile-URL.
-#      _cache_get(url)                                    → Liest ein gecachtes Tile vom Dateisystem.
-#      _cache_set(url, data)                              → Speichert ein Tile auf dem Dateisystem.
-#    GpxMapGeneratorBase                                  → Abstrakte Basisklasse für die Generierung von GPX-Karten.
-#      __init__(self, tracks, routes, ct, cr, 
-#               ending_point, map_size, user, 
-#               cache, clean, verbose)                    → Funktionsbeschreibung.
-#      _get_map_filename(filename, suffix)                → Dateinamen der Html- und JPG-Datei.
-#      _generate(trackpath, tracks, routes, suffix)       → Abstrakte Methode zur formatspezifischen Kartenerstellung.
-#    GpxMapGeneratorHtml                                  → Generiert eine interaktive Karte im HTML-Format unter Verwendung von Folium.
-#      __init__(self, tracks, routes, ct, cr, 
-#               ending_point, map_size, verbose)          → Initialisiert den HTML-Generator über die Basisklasse.
-#      _draw_path(mymap, trackroutes, color)              → Zeichert die übergebenen Tracks oder Routen als PolyLines und Marker auf die Folium-Map.
-#      _generate(trackpath, tracks, routes, suffix)       → Erzeugt eine interaktive HTML-Karte aus den übergebenen Tracks und Routen.
-#    GpxMapGeneratorJPG                                   → Generiert eine Rasterkarte im JPEG-Format unter Verwendung von GeoTiler.
-#      __init__(self, tracks, routes, ct, cr, 
-#               ending_point, map_size, user, 
-#               cache, clean, verbose)                    → Initialisiert den JPG-Generator über die Basisklasse.
-#      _draw_path(gmap, image, draw, trackroutes, 
-#                 color)                                  → Zechnet die übergebenen Tracks oder Routen und platziert die vordefinierten Icons.
-#      _generate(trackpath, tracks, routes, suffix)       → Erzeugt eine JPG-Rasterkarte aus den übergebenen Tracks und Routen mit GeoTiler.
-#    GGPXMapProcessor                                     → Koordiniert den gesamten Prozess des Ladens von GPX-Daten und der Generierung von.
-#      __init__(self, path, params)                       → Initialisiert den Prozessor und lädt die Konfiguration.
-# ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 from abc import ABC, abstractmethod
@@ -70,13 +46,13 @@ import hashlib
 from PIL import Image, ImageDraw as PILImageDrawModule
 from folium import Map, PolyLine, Marker, CustomIcon
 
-from utils_core import log_to_callback, CallbackTag as Tag
-from utils_datetime import TZ_UTC
-from utils_filepath import PathUtils
-from gpmf_const import SUFFIX_JPEG, SUFFIX_HTML
-from gpx_schema import GeoPointTime, GPXTrackInfo
-from gpmf_exif import EExiv2
-from gpmf_gpx import GGPX
+from rpg_utils.utils_core import log_to_callback, CallbackTag as Tag
+from rpg_utils.utils_datetime import TZ_UTC
+from rpg_utils.utils_filepath import PathUtils
+from rpg_gpmf.gpmf_const import SUFFIX_JPEG, SUFFIX_HTML
+from rpg_gpx.gpx_schema import GeoPointTime, GPXTrackInfo
+from rpg_gpmf.gpmf_exif import EExiv2
+from rpg_gpmf.gpmf_gpx import GGPX
 from prg_gopro2file_config import GoProParameters
 
 # Constants for Map and OSM tile calculation

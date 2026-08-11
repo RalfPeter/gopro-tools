@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 08-08-2026
+# 10-08-2026
 # RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
 #  Programm          : gui_gopro2overlay.py
-#  Version           : 2.6
-#  Beschreibung      : Keine Beschreibung verfügbar.
-#  Zeilen            : 671
+#  Version           : 3.0
+#  Beschreibung      : Logfile initialisieren und Callback einrichten
+#  Zeilen            : 667
 #  Abhängigkeiten    : PySide6, asyncio, gc, os, pathlib, sys, time, traceback, typing
-#  Eigene Frameworks : geo, gpmf, gpx, gui, utils
+#  Eigene Frameworks : rpg_gpmf, rpg_gui, rpg_overlay, rpg_utils
 #  Klassen           : MainWindow, Worker
 # ------------------------------------------------------------------------------
 #  Public Methoden:
@@ -55,15 +55,11 @@ from PySide6.QtGui import QImage, QPixmap
 from PySide6.QtWidgets import (QApplication, QWidget, QLabel, QCheckBox, QSplitter, QPushButton, QListWidget,
                                QListWidgetItem, QTextEdit, QFileDialog, QProgressBar)
 
-from utils_core import TRENNER, fatal, setup_crash_logger, log_to_callback, AppLogger, CallbackTag as Tag, ProgressEvent, ProgressType, initialize_windows_app_id
-from utils_filepath import PathUtils
-from gpmf_const import SUFFIX_OVERLAY, VIDEO_EXTENSIONS, IMAGE_EXTENSIONS
-from gpmf_ffmpeg import FfmpegConfig, FfmpegTools
-from gpmf_meta_gopro import GoProFile, NoGoProError
-from gpmf_meta_video import NoVideoError
-from gpmf_overlay import create_gopro_overlay
-from gui_utils import ErrorHandler
-from gui_template import BaseMainWindow, BaseWorker
+from rpg_utils import TRENNER, fatal, setup_crash_logger, log_to_callback, AppLogger, CallbackTag as Tag, ProgressEvent, ProgressType, initialize_windows_app_id, PathUtils
+from rpg_gpmf import SUFFIX_OVERLAY, VIDEO_EXTENSIONS, IMAGE_EXTENSIONS
+from rpg_gpmf import FfmpegConfig, FfmpegTools, GoProFile, NoGoProError, NoVideoError
+from rpg_overlay import create_gopro_overlay
+from rpg_gui import ErrorHandler, BaseMainWindow, BaseWorker
 
 from prg_gopro2overlay_config import OverlayParameters
 from gui_gopro2overlay_const import AppConfig

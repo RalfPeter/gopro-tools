@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 08-08-2026
+# 10-08-2026
 # RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
 #  Programm          : gui_gopro2file.py
-#  Version           : 2.1
-#  Beschreibung      : Keine Beschreibung verfügbar.
-#  Zeilen            : 576
+#  Version           : 3.0
+#  Beschreibung      : Logfile initialisieren und Callback einrichten
+#  Zeilen            : 573
 #  Abhängigkeiten    : PySide6, asyncio, datetime, gc, nest_asyncio, os, pathlib, sys, traceback, typing
-#  Eigene Frameworks : geo, gpmf, gpx, gui, utils
+#  Eigene Frameworks : rpg_geo, rpg_gpmf, rpg_gpx, rpg_gui, rpg_utils
 #  Klassen           : MainWindow, Worker
 # ------------------------------------------------------------------------------
 #  Public Methoden:
@@ -55,18 +55,15 @@ from PySide6.QtCore import Qt, Slot, QThread, Signal, QMetaObject, QTranslator, 
 from PySide6.QtWidgets import (QApplication, QWidget, QLabel, QPushButton, QTextEdit, QFileDialog, QProgressBar, QDialog,
                                QTreeWidget, QTreeWidgetItem, QHeaderView)
 
-from utils_core import setup_crash_logger, log_to_callback, AppLogger, CallbackTag as Tag, ProgressEvent, ProgressType, TRENNER, fatal, initialize_windows_app_id
-from utils_filepath import PathUtils
-from gpmf_const import VIDEO_EXTENSIONS
-from gpmf_meta_video import NoVideoError
-from gpmf_meta_gopro import GoProFile, NoGoProError
-from gui_utils import ErrorHandler
-from gui_template import BaseMainWindow, BaseWorker
+from rpg_utils import setup_crash_logger, log_to_callback, AppLogger, CallbackTag as Tag, ProgressEvent, ProgressType, TRENNER, fatal, initialize_windows_app_id
+from rpg_utils import PathUtils
+from rpg_gpmf import VIDEO_EXTENSIONS, NoVideoError, GoProFile, NoGoProError
+from rpg_gui import ErrorHandler, BaseMainWindow, BaseWorker
 
-from prg_gopro2file_config import GoProParameters
-from prg_gopro2file import main as gopro2file_main
 from gui_gopro2file_const import AppConfig
+from prg_gopro2file_config import GoProParameters
 from gui_gopro2file_dialogs import GeneralSettingsDialog, GpxSettingsDialog, OutputFormatsDialog, ThumbnailMapSettingsDialog, VideoRenamingDialog
+from prg_gopro2file import main as gopro2file_main
 
 # Erlaubt verschachtelte asyncio-Event-Loops (verhindert RuntimeError bei Bibliotheken mit eigenen Loops)
 nest_asyncio.apply()

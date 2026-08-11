@@ -1,32 +1,30 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 04-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : prg_desc2gpx.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : prg_desc2gpx.py
+#  Version           : 2.0
+#  Beschreibung      : Führt die Beschreibungs-Generierung und das Mapping für GPX-Dateien aus.
+#  Zeilen            : 85
+#  Abhängigkeiten    : pathlib, sys
+#  Eigene Frameworks : rpg_geo, rpg_gpmf, rpg_gpx, rpg_utils
 # ------------------------------------------------------------------------------
-#  Klassen:
-#    keine
-#  Public Methods:
-#     main(params)                        → Führt die Beschreibungs-Generierung und das Mapping für GPX-Dateien aus.
+#  Globale Funktionen:
+#    main(GoProParameters)                                → Führt die Beschreibungs-Generierung und das Mapping für GPX-Dateien aus.
 # ------------------------------------------------------------------------------
-#  Benutzte eigene Framework:
-#    geo, gpmf, gpx, utils
-# ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 import sys
 from pathlib import Path
 
-from utils_core import AppLogger, TRENNER, fatal, CallbackTag as Tag, log_to_callback
-from utils_filepath import PathUtils
-from gpmf_gpx import GGPXManager
-import gpmf_geo as geoinfo
+from rpg_utils import AppLogger, TRENNER, fatal, CallbackTag as Tag, log_to_callback, PathUtils
+from rpg_gpmf import GGPXManager, gpmf_geo as geoinfo
+
 from prg_gopro2file_config import GoProParameters
 from prg_gopro2file_map import GGPXMapProcessor
 

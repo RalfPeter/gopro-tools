@@ -1,30 +1,30 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 07-08-2026
-# Ralf Peter <ralfpeter61@email.de>
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
 #  Programm          : prg_gpx2map.py
 #  Version           : 2.0
-#  Beschreibung      : Keine Beschreibung verfügbar.
+#  Beschreibung      : Führt die Beschreibungs-Generierung und das Mapping für GPX-Dateien aus.
 #  Zeilen            : 84
 #  Abhängigkeiten    : pathlib, sys
-#  Eigene Frameworks : geo, gpmf, gpx, utils
+#  Eigene Frameworks : rpg_geo, rpg_gpmf, rpg_gpx, rpg_utils
 # ------------------------------------------------------------------------------
 #  Globale Funktionen:
-#    main(params)                                         → Führt die Beschreibungs-Generierung und das Mapping für GPX-Dateien aus.
+#    main(GoProParameters)                                → Führt die Beschreibungs-Generierung und das Mapping für GPX-Dateien aus.
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 import sys
 from pathlib import Path
 
-from utils_core import TRENNER, AppLogger, fatal, CallbackTag as Tag, log_to_callback
-from utils_filepath import PathUtils
-import gpmf_geo as geoinfo
+from rpg_utils import TRENNER, AppLogger, fatal, CallbackTag as Tag, log_to_callback, PathUtils
+from rpg_gpmf import gpmf_geo as geoinfo
+
 from prg_gopro2file_config import GoProParameters
 from prg_gopro2file_map import GGPXMapProcessor
 

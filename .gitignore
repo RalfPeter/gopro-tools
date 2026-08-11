@@ -19,10 +19,10 @@ build/
 Thumbs.db
 
 # Dokumentation / Interne Ordner
-/doc/
+doc/
 
 # Data & Cache (Geo-Daten, Datenbanken, Cache-Dateien)
-/data/
+data/
 *.pickle
 *.sqlite
 

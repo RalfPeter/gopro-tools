@@ -1,59 +1,66 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 04-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : gui_gopro2file_dialogs.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : gui_gopro2file_dialogs.py
+#  Version           : 2.0
+#  Beschreibung      : Keine Beschreibung verfügbar.
+#  Zeilen            : 420
+#  Abhängigkeiten    : pathlib
+#  Klassen           : GeneralSettingsDialog, GpxSettingsDialog, OutputFormatsDialog, ThumbnailMapSettingsDialog
+#                     VideoRenamingDialog
 # ------------------------------------------------------------------------------
-#  Klassen:
-#     GeneralSettingsDialog
-#     GpxSettingsDialog
-#     OutputFormatsDialog
-#     ThumbnailMapSettingsDialog
-#     VideoRenamingDialog
-#  Public Methods:
-#     GeneralSettingsDialog.get_ui_file_path() → Keine Beschreibung.
-#     GeneralSettingsDialog.get_ui_data() → Keine Beschreibung.
-#     GeneralSettingsDialog.set_ui_data(data) → Keine Beschreibung.
-#     GeneralSettingsDialog.get_window_title() → Keine Beschreibung.
-#     GeneralSettingsDialog.set_options(params) → Keine Beschreibung.
-#     GeneralSettingsDialog.update_options(params) → Keine Beschreibung.
-#     GpxSettingsDialog.get_ui_file_path() → Keine Beschreibung.
-#     GpxSettingsDialog.get_ui_data()     → Keine Beschreibung.
-#     GpxSettingsDialog.set_ui_data(data) → Keine Beschreibung.
-#     GpxSettingsDialog.get_window_title() → Keine Beschreibung.
-#     GpxSettingsDialog.set_options(params) → Keine Beschreibung.
-#     GpxSettingsDialog.update_options(params) → Keine Beschreibung.
-#     OutputFormatsDialog.get_ui_file_path() → Keine Beschreibung.
-#     OutputFormatsDialog.get_ui_data()   → Keine Beschreibung.
-#     OutputFormatsDialog.set_ui_data(data) → Keine Beschreibung.
-#     OutputFormatsDialog.get_window_title() → Keine Beschreibung.
-#     OutputFormatsDialog.set_options(params) → Keine Beschreibung.
-#     OutputFormatsDialog.update_options(params) → Keine Beschreibung.
-#     ThumbnailMapSettingsDialog.get_ui_file_path() → Keine Beschreibung.
-#     ThumbnailMapSettingsDialog.get_ui_data() → Keine Beschreibung.
-#     ThumbnailMapSettingsDialog.set_ui_data(data) → Keine Beschreibung.
-#     ThumbnailMapSettingsDialog.get_window_title() → Keine Beschreibung.
-#     ThumbnailMapSettingsDialog.set_options(params) → Keine Beschreibung.
-#     ThumbnailMapSettingsDialog.update_options(params) → Keine Beschreibung.
-#     VideoRenamingDialog.get_ui_file_path() → Keine Beschreibung.
-#     VideoRenamingDialog.get_ui_data()   → Keine Beschreibung.
-#     VideoRenamingDialog.set_ui_data(data) → Keine Beschreibung.
-#     VideoRenamingDialog.get_window_title() → Keine Beschreibung.
-#     VideoRenamingDialog.set_options(params) → Keine Beschreibung.
-#     VideoRenamingDialog.update_options(params) → Keine Beschreibung.
+#  Public Methoden:
+#    GeneralSettingsDialog                                → Dialog für allgemeine System-, Anwendungs- und Geokodierungs-Optionen.
+#      get_ui_file_path()                                 → Keine Beschreibung.
+#      get_ui_data()                                      → Keine Beschreibung.
+#      set_ui_data(bytes)                                 → Keine Beschreibung.
+#      get_window_title()                                 → Keine Beschreibung.
+#      set_options(GoProParameters)                       → Keine Beschreibung.
+#      update_options(GoProParameters)                    → Keine Beschreibung.
+#
+#    GpxSettingsDialog                                    → Dialog für GPS-Schwellenwerte, Filter und GPX-Zusatzdaten.
+#      get_ui_file_path()                                 → Keine Beschreibung.
+#      get_ui_data()                                      → Keine Beschreibung.
+#      set_ui_data(bytes)                                 → Keine Beschreibung.
+#      get_window_title()                                 → Keine Beschreibung.
+#      set_options(GoProParameters)                       → Keine Beschreibung.
+#      update_options(GoProParameters)                    → Keine Beschreibung.
+#
+#    OutputFormatsDialog                                  → Dialog für Daten-Exporte, Ausgabeformate und Archivierungseinstellungen.
+#      get_ui_file_path()                                 → Keine Beschreibung.
+#      get_ui_data()                                      → Keine Beschreibung.
+#      set_ui_data(bytes)                                 → Keine Beschreibung.
+#      get_window_title()                                 → Keine Beschreibung.
+#      set_options(GoProParameters)                       → Keine Beschreibung.
+#      update_options(GoProParameters)                    → Keine Beschreibung.
+#
+#    ThumbnailMapSettingsDialog                           → Dialog für Vorschaubilder, Kartengenerierung, Abmessungen und Styling.
+#      get_ui_file_path()                                 → Keine Beschreibung.
+#      get_ui_data()                                      → Keine Beschreibung.
+#      set_ui_data(bytes)                                 → Keine Beschreibung.
+#      get_window_title()                                 → Keine Beschreibung.
+#      set_options(GoProParameters)                       → Keine Beschreibung.
+#      update_options(GoProParameters)                    → Keine Beschreibung.
+#
+#    VideoRenamingDialog                                  → Dialog für Konfigurationen zur automatischen GoPro-Videoumbenennung.
+#      get_ui_file_path()                                 → Keine Beschreibung.
+#      get_ui_data()                                      → Keine Beschreibung.
+#      set_ui_data(bytes)                                 → Keine Beschreibung.
+#      get_window_title()                                 → Keine Beschreibung.
+#      set_options(GoProParameters)                       → Keine Beschreibung.
+#      update_options(GoProParameters)                    → Keine Beschreibung.
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 from pathlib import Path
 
-from gui_utils import ColorButton
-from gui_template import AbstractBaseOptionsDialog
+from rpg_gui import ColorButton, AbstractBaseOptionsDialog
 from gui_gopro2file_const import AppConfig
 from prg_gopro2file_config import GoProParameters
 
@@ -68,24 +75,51 @@ class GeneralSettingsDialog(AbstractBaseOptionsDialog):
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_file_path(cls) -> Path:
+        """Kurzbeschreibung für get_ui_file_path.
+        
+        :return: (Path) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.UI_GENERAL_SETTINGS
 
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_data(cls) -> bytes | None:
+        """Kurzbeschreibung für get_ui_data.
+        
+        :return: (bytes | None) Beschreibung des Rückgabewerts.
+        """
+
         return cls._ui_data
 
     # --------------------------------------------------------------------------------
     @classmethod
     def set_ui_data(cls, data: bytes) -> None:
+        """Kurzbeschreibung für set_ui_data.
+        
+        :param data: (bytes) Beschreibung von data.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         cls._ui_data = data
 
     # --------------------------------------------------------------------------------
     def get_window_title(self) -> str:
+        """Kurzbeschreibung für get_window_title.
+        
+        :return: (str) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.TITLE_GENERAL_SETTINGS
 
     # --------------------------------------------------------------------------------
     def set_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für set_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         self.ui.chkbx_recursive.setChecked(params.recursive)
         self.ui.chkbx_clean.setChecked(params.clean)
         self.ui.chkbx_nocache.setChecked(params.no_cache)
@@ -100,6 +134,12 @@ class GeneralSettingsDialog(AbstractBaseOptionsDialog):
 
     # --------------------------------------------------------------------------------
     def update_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für update_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         params.recursive = self.ui.chkbx_recursive.isChecked()
         params.clean = self.ui.chkbx_clean.isChecked()
         params.no_cache = self.ui.chkbx_nocache.isChecked()
@@ -123,24 +163,51 @@ class GpxSettingsDialog(AbstractBaseOptionsDialog):
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_file_path(cls) -> Path:
+        """Kurzbeschreibung für get_ui_file_path.
+        
+        :return: (Path) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.UI_GPX_SETTINGS
 
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_data(cls) -> bytes | None:
+        """Kurzbeschreibung für get_ui_data.
+        
+        :return: (bytes | None) Beschreibung des Rückgabewerts.
+        """
+
         return cls._ui_data
 
     # --------------------------------------------------------------------------------
     @classmethod
     def set_ui_data(cls, data: bytes) -> None:
+        """Kurzbeschreibung für set_ui_data.
+        
+        :param data: (bytes) Beschreibung von data.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         cls._ui_data = data
 
     # --------------------------------------------------------------------------------
     def get_window_title(self) -> str:
+        """Kurzbeschreibung für get_window_title.
+        
+        :return: (str) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.TITLE_GPX_SETTINGS
 
     # --------------------------------------------------------------------------------
     def set_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für set_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         self.ui.spin_diff_time.setValue(params.diff_time)
         self.ui.spin_diff_dist.setValue(params.diff_dist)
         self.ui.chkbx_locked.setChecked(params.locked)
@@ -148,6 +215,12 @@ class GpxSettingsDialog(AbstractBaseOptionsDialog):
 
     # --------------------------------------------------------------------------------
     def update_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für update_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         params.diff_time = self.ui.spin_diff_time.value()
         params.diff_dist = self.ui.spin_diff_dist.value()
         params.locked = self.ui.chkbx_locked.isChecked()
@@ -164,24 +237,51 @@ class OutputFormatsDialog(AbstractBaseOptionsDialog):
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_file_path(cls) -> Path:
+        """Kurzbeschreibung für get_ui_file_path.
+        
+        :return: (Path) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.UI_OUTPUT_FORMATS
 
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_data(cls) -> bytes | None:
+        """Kurzbeschreibung für get_ui_data.
+        
+        :return: (bytes | None) Beschreibung des Rückgabewerts.
+        """
+
         return cls._ui_data
 
     # --------------------------------------------------------------------------------
     @classmethod
     def set_ui_data(cls, data: bytes) -> None:
+        """Kurzbeschreibung für set_ui_data.
+        
+        :param data: (bytes) Beschreibung von data.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         cls._ui_data = data
 
     # --------------------------------------------------------------------------------
     def get_window_title(self) -> str:
+        """Kurzbeschreibung für get_window_title.
+        
+        :return: (str) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.TITLE_OUTPUT_FORMATS
 
     # --------------------------------------------------------------------------------
     def set_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für set_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         self.ui.chkbx_file_all.setChecked(params.file_all)
         self.ui.chkbx_file_virb.setChecked(params.file_virb)
         self.ui.chkbx_file_bin.setChecked(params.file_bin)
@@ -197,6 +297,12 @@ class OutputFormatsDialog(AbstractBaseOptionsDialog):
 
     # --------------------------------------------------------------------------------
     def update_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für update_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         params.file_all = self.ui.chkbx_file_all.isChecked()
         params.file_virb = self.ui.chkbx_file_virb.isChecked()
         params.file_bin = self.ui.chkbx_file_bin.isChecked()
@@ -224,24 +330,51 @@ class ThumbnailMapSettingsDialog(AbstractBaseOptionsDialog):
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_file_path(cls) -> Path:
+        """Kurzbeschreibung für get_ui_file_path.
+        
+        :return: (Path) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.UI_THUMB_MAP_SETTINGS
 
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_data(cls) -> bytes | None:
+        """Kurzbeschreibung für get_ui_data.
+        
+        :return: (bytes | None) Beschreibung des Rückgabewerts.
+        """
+
         return cls._ui_data
 
     # --------------------------------------------------------------------------------
     @classmethod
     def set_ui_data(cls, data: bytes) -> None:
+        """Kurzbeschreibung für set_ui_data.
+        
+        :param data: (bytes) Beschreibung von data.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         cls._ui_data = data
 
     # --------------------------------------------------------------------------------
     def get_window_title(self) -> str:
+        """Kurzbeschreibung für get_window_title.
+        
+        :return: (str) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.TITLE_THUMB_MAP_SETTINGS
 
     # --------------------------------------------------------------------------------
     def set_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für set_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         self.ui.chkbx_thumb.setChecked(params.thumb)
         self.ui.chkbx_overwrite_thumb.setChecked(params.overwrite_thumb)
         self.ui.txt_delta.setText(str(params.delta))
@@ -256,6 +389,12 @@ class ThumbnailMapSettingsDialog(AbstractBaseOptionsDialog):
 
     # --------------------------------------------------------------------------------
     def update_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für update_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         params.thumb = self.ui.chkbx_thumb.isChecked()
         params.overwrite_thumb = self.ui.chkbx_overwrite_thumb.isChecked()
         params.delta = self.ui.txt_delta.text()
@@ -279,30 +418,63 @@ class VideoRenamingDialog(AbstractBaseOptionsDialog):
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_file_path(cls) -> Path:
+        """Kurzbeschreibung für get_ui_file_path.
+        
+        :return: (Path) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.UI_VIDEO_RENAMING
 
     # --------------------------------------------------------------------------------
     @classmethod
     def get_ui_data(cls) -> bytes | None:
+        """Kurzbeschreibung für get_ui_data.
+        
+        :return: (bytes | None) Beschreibung des Rückgabewerts.
+        """
+
         return cls._ui_data
 
     # --------------------------------------------------------------------------------
     @classmethod
     def set_ui_data(cls, data: bytes) -> None:
+        """Kurzbeschreibung für set_ui_data.
+        
+        :param data: (bytes) Beschreibung von data.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         cls._ui_data = data
 
     # --------------------------------------------------------------------------------
     def get_window_title(self) -> str:
+        """Kurzbeschreibung für get_window_title.
+        
+        :return: (str) Beschreibung des Rückgabewerts.
+        """
+
         return AppConfig.TITLE_VIDEO_RENAMING
 
     # --------------------------------------------------------------------------------
     def set_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für set_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         self.ui.txt_pattern.setText(params.pattern)
         self.ui.txt_user.setText(str(params.user))
         self.ui.chkbx_namesequence.setChecked(params.namesequence)
 
     # --------------------------------------------------------------------------------
     def update_options(self, params: GoProParameters) -> None:
+        """Kurzbeschreibung für update_options.
+        
+        :param params: (GoProParameters) Beschreibung von params.
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         params.pattern = self.ui.txt_pattern.text()
         params.user = self.ui.txt_user.text()
         params.namesequence = self.ui.chkbx_namesequence.isChecked()

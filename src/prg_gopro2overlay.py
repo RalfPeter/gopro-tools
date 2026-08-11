@@ -1,33 +1,31 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 07-08-2026
-# Ralf Peter <ralfpeter61@email.de>
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
 #  Programm          : prg_gopro2overlay.py
-#  Version           : 2.0
-#  Beschreibung      : Keine Beschreibung verfügbar.
-#  Zeilen            : 212
+#  Version           : 3.0
+#  Beschreibung      : Führt die Overlay-Erzeugung für GoPro Videos aus
+#  Zeilen            : 210
 #  Abhängigkeiten    : pathlib, sys
-#  Eigene Frameworks : geo, gpmf, gpx, utils
+#  Eigene Frameworks : rpg_gpmf, rpg_overlay, rpg_utils
 # ------------------------------------------------------------------------------
 #  Globale Funktionen:
-#    main(params)                                         → Führt die Overlay-Erzeugung für GoPro Videos aus
+#    main(OverlayParameters)                              → Führt die Overlay-Erzeugung für GoPro Videos aus
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 import sys
 from pathlib import Path
 
-from utils_core import TRENNER, AppLogger, fatal, CallbackTag as Tag, log_to_callback
-from utils_filepath import PathUtils
-from gpmf_const import SUFFIX_OVERLAY
-from gpmf_meta_video import VideoFile, VideoFiles, NoVideoError
-from gpmf_meta_gopro import GoProFile, NoGoProError
-from gpmf_overlay import create_gopro_overlay
+from rpg_utils import TRENNER, AppLogger, fatal, CallbackTag as Tag, log_to_callback, PathUtils
+from rpg_gpmf import SUFFIX_OVERLAY, VideoFile, VideoFiles, NoVideoError, GoProFile, NoGoProError
+from rpg_overlay import create_gopro_overlay
+
 from prg_gopro2overlay_config import OverlayParameters
 
 

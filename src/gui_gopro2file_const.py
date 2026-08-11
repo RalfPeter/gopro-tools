@@ -1,20 +1,19 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 06-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : gui_gopro2file_const.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : gui_gopro2file_const.py
+#  Version           : 2.0
+#  Beschreibung      : Zentrale Konstanten für die GoPro-GUI.
+#  Zeilen            : 38
+#  Abhängigkeiten    : pathlib, typing
+#  Klassen           : AppConfig
 # ------------------------------------------------------------------------------
-#  Klassen:
-#     AppConfig
-#  Public Methods:
-#    keine
-# ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 """
@@ -22,7 +21,7 @@ Zentrale Konstanten für die GoPro-GUI.
 """
 from pathlib import Path
 from typing import Final
-from utils_config import BaseConfig
+from rpg_utils.utils_config import BaseConfig
 
 
 # ================================================================================

@@ -1,20 +1,23 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 04-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : prg_gopro2overlay_config.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : prg_gopro2overlay_config.py
+#  Version           : 2.0
+#  Beschreibung      : Keine Beschreibung verfügbar.
+#  Zeilen            : 137
+#  Abhängigkeiten    : argparse, dataclasses, pathlib, typing
+#  Klassen           : OverlayParameters
 # ------------------------------------------------------------------------------
-#  Klassen:
-#     OverlayParameters
-#  Public Methods:
-#     OverlayParameters.parse_args()      → Parst die Kommandozeilenparameter speziell für das Overlay-Tool.
+#  Public Methoden:
+#    OverlayParameters                                    → Zentrales Datenobjekt für alle Laufzeitparameter des MP4-Overlay-Gadgets.
+#      parse_args()                                       → Parst die Kommandozeilenparameter speziell für das Overlay-Tool.
 # ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 from __future__ import annotations
@@ -23,7 +26,7 @@ from argparse import ArgumentParser
 from dataclasses import dataclass, fields, field
 from pathlib import Path
 
-from utils_config import BaseParameters
+from rpg_utils.utils_config import BaseParameters
 
 
 # ================================================================================
@@ -31,11 +34,8 @@ from utils_config import BaseParameters
 @final
 @dataclass
 class OverlayParameters(BaseParameters):
-    """Zentrales Datenobjekt für alle Laufzeitparameter des MP4-Overlay-Gadgets.
+    """Zentrales Datenobjekt für alle Laufzeitparameter des MP4-Overlay-Gadgets."""
 
-    Bietet ein maßgeschneidertes Subset an Parametern, das exakt auf das
-    Rendern von GPS-Metadaten-Overlays auf Videos via FFmpeg abgestimmt ist.
-    """
     # inputfiles usw. werden von der Persistierung ausgeschlossen
     EXCLUDED_PERSISTENCE_FIELDS: ClassVar[set[str]] = {
         "inputfiles",
@@ -87,7 +87,11 @@ class OverlayParameters(BaseParameters):
 
     # --------------------------------------------------------------------------------
     def __post_init__(self) -> None:
-        """Initialisiert Listen-Defaults sicher nach der Dataclass-Instanziierung."""
+        """Initialisiert Listen-Defaults sicher nach der Dataclass-Instanziierung.
+        
+        :return: (None) Beschreibung des Rückgabewerts.
+        """
+
         # nutzen wir standardmäßig das aktuelle Verzeichnis
         if not self.inputpaths:
             self.inputpaths = ['./']
@@ -95,12 +99,10 @@ class OverlayParameters(BaseParameters):
     # --------------------------------------------------------------------------------
     def parse_args(self) -> OverlayParameters:
         """Parst die Kommandozeilenparameter speziell für das Overlay-Tool.
-
-        Aktualisiert die Instanz direkt und gibt sie für Method-Chaining zurück.
-
-        :return: Das aktualisierte Instanzobjekt (Self).
-        :rtype: OverlayParameters
+        
+        :return: (OverlayParameters) Beschreibung des Rückgabewerts.
         """
+
         # F stellt alle Feldnamen als Attribute bereit (z. B. F.clean -> "clean")
         F = self.Fields
         class_defaults: dict[str, Any] = {f.name: f.default for f in fields(self)}

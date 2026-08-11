@@ -1,23 +1,22 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 04-08-2026
-# Ralf Peter <ralfpeter61@email.de>
-# https://github.com/RalfPeter/tracktraffic.git
+# 10-08-2026
+# RalfPeter <ralfpeter.bergheim@gmail.com>
+# https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Program : prg_gopro2file.py (main - GoPro Videos and Telemetry Export)
-#  Version : 1.0
+#  Programm          : prg_gopro2file.py
+#  Version           : 2.0
+#  Beschreibung      : Führt den Export und die Telemetrie-Extraktion für alle Verzeichnisse aus.
+#  Zeilen            : 570
+#  Abhängigkeiten    : cProfile, collections, fnmatch, io, pathlib, pstats, sys
+#  Eigene Frameworks : rpg_geo, rpg_gpmf, rpg_gpx, rpg_utils
 # ------------------------------------------------------------------------------
-#  Klassen:
-#    keine
-#  Public Methods:
-#     main(params, profiler)              → Führt den Export und die Telemetrie-Extraktion für alle Verzeichnisse aus.
+#  Globale Funktionen:
+#    main(GoProParameters, Profile)                       → Führt den Export und die Telemetrie-Extraktion für alle Verzeichnisse aus.
 # ------------------------------------------------------------------------------
-#  Benutzte eigene Framework:
-#    geo, gpmf, gpx, utils
-# ------------------------------------------------------------------------------
-#  Copyright (C) 2026 <ralfpeter61@email.de>
+#  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
 
 import sys
@@ -28,22 +27,16 @@ from collections import defaultdict
 from pathlib import Path
 import fnmatch
 
-from utils_core import AppLogger, TRENNER, fatal, CallbackTag as Tag, log_to_callback, ProgressEvent
-from utils_datetime import DateTimeUtils, ISO_FORMAT_TZ
-from utils_filepath import PathUtils
-from utils_string import StringUtils as Str
+from rpg_utils import AppLogger, TRENNER, fatal, CallbackTag as Tag, log_to_callback, ProgressEvent, DateTimeUtils, ISO_FORMAT_TZ
+from rpg_utils import PathUtils, StringUtils as Str
 
-from gpmf_const import GOPRO_USER_09, GOPRO_USER_10, TRASH_EXTENSIONS
-from gpmf_meta_video import VideoFile, VideoFiles, NoVideoError, NoMetaError, NoSRTError, SRTFiles, SRTExtractor, GOPRO_08, GOPRO_09
-from gpmf_meta_gopro import GoProFile, NoGoProError, GpmfFiles, GpmfFile, NoGpmfError, ExtractionMethod, GoProRecordingGroups, GoProRenamer
-from gpmf_exif import EExiv2
-from gpmf_gpx import GGPXManager
-from gpmf_gpx_jpeg import GGPXJpegManager
+from rpg_gpmf import GOPRO_USER_09, GOPRO_USER_10, TRASH_EXTENSIONS
+from rpg_gpmf import VideoFile, VideoFiles, NoVideoError, NoMetaError, NoSRTError, SRTFiles, SRTExtractor, GOPRO_08, GOPRO_09
+from rpg_gpmf import GoProFile, NoGoProError, GpmfFiles, GpmfFile, NoGpmfError, ExtractionMethod, GoProRecordingGroups, GoProRenamer
+from rpg_gpmf import EExiv2, GGPXManager, GGPXJpegManager, GoProFileWrite, gpmf_geo as geoinfo
+from rpg_gpx import GeoPointTime
+
 from prg_gopro2file_map import GGPXMapProcessor
-from gpmf_writer import GoProFileWrite
-import gpmf_geo as geoinfo
-from gpx_schema import GeoPointTime
-
 from prg_gopro2file_config import GoProParameters
 from prg_gopro2file_utils import rename_videofile, print_video_metadata, write_video_datafiles
 
