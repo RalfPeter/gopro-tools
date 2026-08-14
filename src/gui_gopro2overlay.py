@@ -1,42 +1,44 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 10-08-2026
+# 14-08-2026
 # RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Programm          : gui_gopro2overlay.py
-#  Version           : 3.0
-#  Beschreibung      : Logfile initialisieren und Callback einrichten
-#  Zeilen            : 667
-#  Abhängigkeiten    : PySide6, asyncio, gc, os, pathlib, sys, time, traceback, typing
-#  Eigene Frameworks : rpg_gpmf, rpg_gui, rpg_overlay, rpg_utils
-#  Klassen           : MainWindow, Worker
+#  Programm           : gui_gopro2overlay.py
+#  Version            : 3.0
+#  Beschreibung       : Logfile initialisieren und Callback einrichten
+#  Zeilen             : 667
+#  Abhängigkeiten     : abc, argparse, asyncio, base64, bisect, cProfile, collections, configparser, ctypes, dataclasses
+#                       datetime, enum, fractions, functools, gc, glob, hashlib, http, inspect, io, json, locale
+#                       logging, math, mmap, os, pathlib, pickle, platform, pstats, re, shutil, struct, subprocess, sys
+#                       tempfile, textwrap, threading, time, traceback, types, typing, xml, zipfile, zoneinfo
+#  Externe Frameworks : PIL, PySide6, gopro_overlay, gpxpy, lxml, numpy, overpy, pandas, pyexiv2, requests, scipy
+#                       shiboken6, tzlocal, yaml
+#  Eigene Frameworks  : rpg_geo, rpg_gpmf, rpg_gpx, rpg_gui, rpg_overlay, rpg_utils
+#  Klassen            : MainWindow, Worker
 # ------------------------------------------------------------------------------
 #  Public Methoden:
-#    MainWindow                                           → Hauptfenster der Anwendung
-#      init_ui()                                          → Verbindet Signale und setzt initiale Widget-Zustände.
-#      close_action()                                     → Kurzbeschreibung für close_action.
-#      save_settings()                                    → Setzen der Speicherparameter
-#      load_settings()                                    → Lädt die gespeicherten Einstellungen beim Start der Anwendung.
-#      update_on_checked(item)                            → Kurzbeschreibung für update_on_checked.
-#      resize_pixmap()                                    → Kurzbeschreibung für resize_pixmap.
-#      on_item_selected()                                 → Wenn ein Item in der Liste ausgewählt wird, diese Funktion aufrufen
-#      adjust_pixmap_size()                               → Skaliere das Pixmap proportional zur Größe des QLabel, während das Seitenverhältnis beibehalten wird
-#      select_folder()                                    → Öffne den Dialog, um einen Ordner auszuwählen
-#      fill_folder(str)                                   → Kurzbeschreibung für fill_folder.
-#      select_layout_file()                               → Öffnet einen Dateiauswahl-Dialog
-#      execute_action()                                   → Startet die Hintergrundverarbeitung im dedizierten QThread nach Qt-Goldstandard.
-#      on_progress_signal_received(ProgressEvent)         → Zentraler Empfänger für Fortschritts-Updates.
-#      on_process_finished_received()                     → Aktiviere den Button wieder nach dem Abschluss der Arbeit
-#      on_log_signal_received(str)                        → Kurzbeschreibung für on_log_signal_received.
-#
-#    Worker                                               → finished = Signal()
-#      run()                                              → Führt die Erstellung der GoPro-Overlays für alle ausgewählten Videos aus.
-# ------------------------------------------------------------------------------
-#  Globale Funktionen:
-#    main(bool)                                           → Logfile initialisieren und Callback einrichten
+#    MainWindow                                   → Hauptfenster der Anwendung
+#      init_ui()                                  → Verbindet Signale und setzt initiale Widget-Zustände.
+#      close_action()                             → Kurzbeschreibung für close_action.
+#      save_settings()                            → Setzen der Speicherparameter
+#      load_settings()                            → Lädt die gespeicherten Einstellungen beim Start der Anwendung.
+#      update_on_checked(item)                    → Kurzbeschreibung für update_on_checked.
+#      resize_pixmap()                            → Kurzbeschreibung für resize_pixmap.
+#      on_item_selected()                         → Wenn ein Item in der Liste ausgewählt wird, diese Funktion aufrufen
+#      adjust_pixmap_size()                       → Skaliere das Pixmap proportional zur Größe des QLabel, während das Seitenverhältnis beibehalten wird
+#      select_folder()                            → Öffne den Dialog, um einen Ordner auszuwählen
+#      fill_folder(str)                           → Kurzbeschreibung für fill_folder.
+#      select_layout_file()                       → Öffnet einen Dateiauswahl-Dialog
+#      execute_action()                           → Startet die Hintergrundverarbeitung im dedizierten QThread nach Qt-Goldstandard.
+#      on_progress_signal_received(ProgressEvent) → Zentraler Empfänger für Fortschritts-Updates.
+#      on_process_finished_received()             → Aktiviere den Button wieder nach dem Abschluss der Arbeit
+#      on_log_signal_received(str)                → Kurzbeschreibung für on_log_signal_received.
+#    Worker                                       → finished = Signal()
+#      run()                                      → Führt die Erstellung der GoPro-Overlays für alle ausgewählten Videos aus.
+#    main(bool)                                   → Logfile initialisieren und Callback einrichten
 # ------------------------------------------------------------------------------
 #  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------

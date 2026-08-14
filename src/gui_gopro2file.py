@@ -1,42 +1,45 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 10-08-2026
+# 14-08-2026
 # RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Programm          : gui_gopro2file.py
-#  Version           : 3.0
-#  Beschreibung      : Logfile initialisieren und Callback einrichten
-#  Zeilen            : 573
-#  Abhängigkeiten    : PySide6, asyncio, datetime, gc, nest_asyncio, os, pathlib, sys, traceback, typing
-#  Eigene Frameworks : rpg_geo, rpg_gpmf, rpg_gpx, rpg_gui, rpg_utils
-#  Klassen           : MainWindow, Worker
+#  Programm           : gui_gopro2file.py
+#  Version            : 3.0
+#  Beschreibung       : Logfile initialisieren und Callback einrichten
+#  Zeilen             : 573
+#  Abhängigkeiten     : abc, argparse, asyncio, base64, bisect, cProfile, collections, configparser, contextlib, ctypes
+#                       dataclasses, datetime, enum, fnmatch, fractions, functools, gc, glob, hashlib, http, inspect, io
+#                       json, locale, logging, math, mmap, os, pathlib, pickle, platform, pstats, re, shutil, struct
+#                       subprocess, sys, tempfile, textwrap, threading, time, traceback, types, typing, xml, zipfile
+#                       zoneinfo
+#  Externe Frameworks : PIL, PySide6, folium, geotiler, gpxpy, lxml, nest_asyncio, numpy, overpy, pandas, pyexiv2
+#                       requests, scipy, shiboken6, tzlocal, yaml
+#  Eigene Frameworks  : rpg_geo, rpg_gpmf, rpg_gpx, rpg_gui, rpg_utils
+#  Klassen            : MainWindow, Worker
 # ------------------------------------------------------------------------------
 #  Public Methoden:
-#    MainWindow                                           → Hauptfenster der Anwendung
-#      init_ui()                                          → Verbindet Signale und setzt initiale Widget-Zustände.
-#      close_action()                                     → Kurzbeschreibung für close_action.
-#      on_action_general_settings_triggered()             → Wird automatisch aufgerufen, wenn 'action_general_settings' ausgelöst wird.
-#      on_action_gpx_settings_triggered()                 → Wird automatisch aufgerufen, wenn 'action_gpx_settings' ausgelöst wird.
-#      on_action_outputformat_settings_triggered()        → Wird automatisch aufgerufen, wenn 'action_output_formats' ausgelöst wird.
-#      on_action_thumbnailmaps_settings_triggered()       → Wird automatisch aufgerufen, wenn 'action_thumbnail_map_settings' ausgelöst wird.
-#      on_action_videorenaming_settings_triggered()       → Wird automatisch aufgerufen, wenn 'action_video_renaming' ausgelöst wird.
-#      save_settings()                                    → Speichert die Fensterposition, Fenstergröße und UI-Einstellungen im zentralen YAML-Objekt.
-#      load_settings()                                    → Lädt die GUI-Einstellungen aus dem zentralen YAML-Objekt und stellt sie wieder her.
-#      select_folder()                                    → Öffnet einen angepassten Ordnerdialog mit Dateivorschau.
-#      fill_folder(str)                                   → Kurzbeschreibung für fill_folder.
-#      execute_action()                                   → Deaktiviere den Button, solange der Thread läuft
-#      on_progress_signal_received(ProgressEvent)         → Zugriff ist jetzt direkt und intuitiv
-#      on_process_finished_received()                     → Gebe den Beendigungstext aus
-#      on_log_signal_received(str)                        → Kurzbeschreibung für on_log_signal_received.
-#
-#    Worker                                               → process_finished = Signal()       # Signal, wenn alle Prozesse abgeschlossen sind
-#      run()                                              → Extrahiert alle Metadaten der GoPro-Videos alle Videos des Ordner.
-# ------------------------------------------------------------------------------
-#  Globale Funktionen:
-#    main(bool)                                           → Logfile initialisieren und Callback einrichten
+#    MainWindow                                   → Hauptfenster der Anwendung
+#      init_ui()                                  → Verbindet Signale und setzt initiale Widget-Zustände.
+#      close_action()                             → Kurzbeschreibung für close_action.
+#      on_action_general_settings_triggered()     → Wird automatisch aufgerufen, wenn 'action_general_settings' ausgelöst wird.
+#      on_action_gpx_settings_triggered()         → Wird automatisch aufgerufen, wenn 'action_gpx_settings' ausgelöst wird.
+#      on_action_outputformat_settings_triggered()→ Wird automatisch aufgerufen, wenn 'action_output_formats' ausgelöst wird.
+#      on_action_thumbnailmaps_settings_triggered()→ Wird automatisch aufgerufen, wenn 'action_thumbnail_map_settings' ausgelöst wird.
+#      on_action_videorenaming_settings_triggered()→ Wird automatisch aufgerufen, wenn 'action_video_renaming' ausgelöst wird.
+#      save_settings()                            → Speichert die Fensterposition, Fenstergröße und UI-Einstellungen im zentralen YAML-Objekt.
+#      load_settings()                            → Lädt die GUI-Einstellungen aus dem zentralen YAML-Objekt und stellt sie wieder her.
+#      select_folder()                            → Öffnet einen angepassten Ordnerdialog mit Dateivorschau.
+#      fill_folder(str)                           → Kurzbeschreibung für fill_folder.
+#      execute_action()                           → Deaktiviere den Button, solange der Thread läuft
+#      on_progress_signal_received(ProgressEvent) → Zugriff ist jetzt direkt und intuitiv
+#      on_process_finished_received()             → Gebe den Beendigungstext aus
+#      on_log_signal_received(str)                → Kurzbeschreibung für on_log_signal_received.
+#    Worker                                       → process_finished = Signal()       # Signal, wenn alle Prozesse abgeschlossen sind
+#      run()                                      → Extrahiert alle Metadaten der GoPro-Videos alle Videos des Ordner.
+#    main(bool)                                   → Logfile initialisieren und Callback einrichten
 # ------------------------------------------------------------------------------
 #  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------

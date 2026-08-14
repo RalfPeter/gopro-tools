@@ -1,20 +1,25 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 10-08-2026
+# 14-08-2026
 # RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Programm          : prg_gopro2file.py
-#  Version           : 2.0
-#  Beschreibung      : Führt den Export und die Telemetrie-Extraktion für alle Verzeichnisse aus.
-#  Zeilen            : 570
-#  Abhängigkeiten    : cProfile, collections, fnmatch, io, pathlib, pstats, sys
-#  Eigene Frameworks : rpg_geo, rpg_gpmf, rpg_gpx, rpg_utils
+#  Programm           : prg_gopro2file.py
+#  Version            : 2.0
+#  Beschreibung       : Führt den Export und die Telemetrie-Extraktion für alle Verzeichnisse aus.
+#  Zeilen             : 570
+#  Abhängigkeiten     : abc, argparse, bisect, cProfile, collections, configparser, contextlib, ctypes, dataclasses
+#                       datetime, enum, fnmatch, fractions, functools, glob, hashlib, http, inspect, io, json, locale
+#                       logging, math, mmap, os, pathlib, pickle, platform, pstats, re, shutil, struct, subprocess, sys
+#                       tempfile, textwrap, threading, time, traceback, typing, xml, zipfile, zoneinfo
+#  Externe Frameworks : PIL, folium, geotiler, gpxpy, lxml, numpy, overpy, pandas, pyexiv2, requests, scipy, tzlocal
+#                       yaml
+#  Eigene Frameworks  : rpg_geo, rpg_gpmf, rpg_gpx, rpg_utils
 # ------------------------------------------------------------------------------
-#  Globale Funktionen:
-#    main(GoProParameters, Profile)                       → Führt den Export und die Telemetrie-Extraktion für alle Verzeichnisse aus.
+#  Public Methoden:
+#    main(GoProParameters, Profile)               → Führt den Export und die Telemetrie-Extraktion für alle Verzeichnisse aus.
 # ------------------------------------------------------------------------------
 #  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------

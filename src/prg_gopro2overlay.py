@@ -1,20 +1,24 @@
 #!/usr/bin/env python
 # ------------------------------------------------------------------------------
-# 10-08-2026
+# 14-08-2026
 # RalfPeter <ralfpeter.bergheim@gmail.com>
 # https://github.com/RalfPeter/
 #
 # Released under GNU GENERAL PUBLIC LICENSE v3. (Use at your own risk)
 # ------------------------------------------------------------------------------
-#  Programm          : prg_gopro2overlay.py
-#  Version           : 3.0
-#  Beschreibung      : Führt die Overlay-Erzeugung für GoPro Videos aus
-#  Zeilen            : 210
-#  Abhängigkeiten    : pathlib, sys
-#  Eigene Frameworks : rpg_gpmf, rpg_overlay, rpg_utils
+#  Programm           : prg_gopro2overlay.py
+#  Version            : 3.0
+#  Beschreibung       : Führt die Overlay-Erzeugung für GoPro Videos aus
+#  Zeilen             : 210
+#  Abhängigkeiten     : abc, argparse, bisect, cProfile, collections, configparser, ctypes, dataclasses, datetime, enum
+#                       fractions, functools, glob, hashlib, http, inspect, io, json, locale, logging, math, mmap, os
+#                       pathlib, pickle, platform, pstats, re, shutil, struct, subprocess, sys, tempfile, textwrap
+#                       threading, time, traceback, typing, xml, zipfile, zoneinfo
+#  Externe Frameworks : PIL, gopro_overlay, gpxpy, lxml, numpy, overpy, pandas, pyexiv2, requests, scipy, tzlocal, yaml
+#  Eigene Frameworks  : rpg_geo, rpg_gpmf, rpg_gpx, rpg_overlay, rpg_utils
 # ------------------------------------------------------------------------------
-#  Globale Funktionen:
-#    main(OverlayParameters)                              → Führt die Overlay-Erzeugung für GoPro Videos aus
+#  Public Methoden:
+#    main(OverlayParameters)                      → Führt die Overlay-Erzeugung für GoPro Videos aus
 # ------------------------------------------------------------------------------
 #  Copyright (C) 2026 <ralfpeter.bergheim@gmail.com>
 # ------------------------------------------------------------------------------
