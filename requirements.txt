@@ -1,63 +1,119 @@
-#+ aiohappyeyeballs
-#+ aiohttp
-#+ aiosignal
-#+ altgraph
-#+ attrs
-#+ branca
-#+ certifi
-#+ charset-normalizer
-#+ cytoolz
-#+ fitdecode
-#+ flexcache
-#+ flexparser
-folium
-#+ frozenlist
-#+ geographiclib
-geotiler
-gopro-overlay
-gpxpy
-#+ idna
-#+ jinja2
-lxml
-#+ MarkupSafe
-#+ multidict
-nest-asyncio
+# Requirements für das Projekt gopro_export
+#
+# Intern genutzte Frameworks:
+#   - rpg_geo
+#   - rpg_gpmf
+#   - rpg_gpx
+#   - rpg_gui
+#   - rpg_overlay
+#   - rpg_utils
+#
+# Installierte Frameworks:
+#   - aiohttp
+#   - branca
+#   - certifi
+#   - charset_normalizer
+#   - cytoolz
+#   - fitdecode
+#   - folium
+#   - geographiclib
+#   - geotiler
+#   - gopro-overlay
+#   - gpxpy
+#   - idna
+#   - jinja2
+#   - lxml
+#   - nest-asyncio
+#   - numpy
+#   - overpy
+#   - pandas
+#   - pillow
+#   - pint
+#   - progressbar2
+#   - pyexiv2
+#   - pyside6
+#   - pyside6_addons
+#   - pyside6_essentials
+#   - python-dateutil
+#   - pyyaml
+#   - requests
+#   - scipy
+#   - setuptools
+#   - shiboken6
+#   - sqlitedict
+#   - tomli
+#   - tzdata
+#   - tzlocal
+#   - urllib3
+#   - xyzservices
+#
+# PIL (pillow)                   ->  keine direkten Abhängigkeiten
+pillow>=12.3.0
+# PySide6                        ->  PySide6_Addons, PySide6_Essentials, shiboken6, tomli
+PySide6>=6.11.1
+PySide6_Addons
+PySide6_Essentials
+shiboken6
+tomli
+# folium                         ->  branca, jinja2, numpy, requests, xyzservices
+folium>=0.20.0
+branca
+jinja2
 numpy
-#+ numpy-typing-compat
-#+ optype
-overpy
-#+ packaging
-pandas
-pandas-stubs
-#+ pefile
-pillow
-#+ pint
-pip
-#+ platformdirs
-#+ progressbar2
-#+ propcache
-pycairo
-pyexiv2
-pyinstaller
-#+ pyinstaller-hooks-contrib
-#+ python-dateutil
-#+ python-utils
-#+ pywin32-ctypes
-pyside6
-pyside6-addons
-pyside6-essentials
-pyyaml
 requests
-scipy
-scipy-stubs
-setuptools<81
-#+ six
-#+ sqlitedict
-#+ toolz
-#+ typing-extensions
+xyzservices
+# geotiler                       ->  aiohttp, cytoolz, Pillow, setuptools
+geotiler>=0.15.1
+aiohttp
+cytoolz
+Pillow
+setuptools
+# gopro_overlay (gopro-overlay)  ->  aiohttp, cytoolz, fitdecode, geographiclib, gpxpy, pillow, pint, progressbar2, requests, sqlitedict
+gopro-overlay>=0.134.0
+aiohttp
+cytoolz
+fitdecode
+geographiclib
+gpxpy
+pillow
+pint
+progressbar2
+requests
+sqlitedict
+# gpxpy                          ->  keine direkten Abhängigkeiten
+gpxpy>=1.6.2
+# lxml                           ->  keine direkten Abhängigkeiten
+lxml>=6.1.1
+# nest_asyncio (nest-asyncio)    ->  keine direkten Abhängigkeiten
+nest-asyncio>=1.6.0
+# numpy                          ->  keine direkten Abhängigkeiten
+numpy>=2.5.1
+# overpy                         ->  keine direkten Abhängigkeiten
+overpy>=0.7
+# pandas                         ->  numpy, python-dateutil, tzdata
+pandas>=3.0.3
+numpy
+python-dateutil
 tzdata
-tzlocal
-#+ urllib3
-#+ wheel
-#+ xyzservices
-#+ yarl
+# pyexiv2                        ->  keine direkten Abhängigkeiten
+pyexiv2>=2.15.5
+# requests                       ->  certifi, charset_normalizer, idna, urllib3
+requests>=2.34.2
+certifi
+charset_normalizer
+idna
+urllib3
+# scipy                          ->  numpy
+scipy>=1.18.0
+numpy
+# shiboken6                      ->  keine direkten Abhängigkeiten
+shiboken6>=6.11.1
+# tzlocal                        ->  tzdata
+tzlocal>=5.4.4
+tzdata
+# yaml (PyYAML)                  ->  keine direkten Abhängigkeiten
+PyYAML>=6.0.3
+# Sonstiges
+pyinstaller
+pyinstaller-hooks-contrib
+setuptools<81.0.0

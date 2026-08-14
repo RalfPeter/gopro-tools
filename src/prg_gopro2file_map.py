@@ -38,7 +38,7 @@ from contextlib import suppress
 import re
 import math
 from datetime import datetime
-import geotiler
+from geotiler import Map as GMap, render_map
 from geotiler.cache import caching_downloader
 from geotiler.tile.io import fetch_tiles
 from functools import partial
@@ -495,7 +495,7 @@ class GpxMapGeneratorJPG(GpxMapGeneratorBase):
         super().__init__(tracks, routes, ct, cr, ending_point, map_size, user, cache, clean, verbose)
 
     # --------------------------------------------------------------------------------
-    def _draw_path(self, gmap: geotiler.Map, image: Image.Image, draw: PILImageDrawModule.ImageDraw, trackroutes: list[GPXTrackInfo], color: str) -> datetime | None:
+    def _draw_path(self, gmap: GMap, image: Image.Image, draw: PILImageDrawModule.ImageDraw, trackroutes: list[GPXTrackInfo], color: str) -> datetime | None:
         """Zechnet die übergebenen Tracks oder Routen und platziert die vordefinierten Icons.
         
         :param gmap: (geotiler.Map) Die Geotiler-Karteninstanz zur Koordinatenkonvertierung.
@@ -582,13 +582,13 @@ class GpxMapGeneratorJPG(GpxMapGeneratorBase):
         zoom = GpxMapCalculator.calculate_zoom_level(bounds, self.map_size)
 
         if zoom <= 18:
-            gmap = geotiler.Map(extent=(bounds.min_lon, bounds.min_lat, bounds.max_lon, bounds.max_lat), size=self.map_size)
+            gmap = GMap(extent=(bounds.min_lon, bounds.min_lat, bounds.max_lon, bounds.max_lat), size=self.map_size)
         else:
-            gmap = geotiler.Map(center=(center_lon, center_lat), zoom=zoom, size=self.map_size)
+            gmap = GMap(center=(center_lon, center_lat), zoom=zoom, size=self.map_size)
 
         # Download über den autonom verwalteten Cache steuern
         downloader_instance = self.tile_cache.downloader if self.tile_cache else None
-        base_image = geotiler.render_map(gmap, downloader=downloader_instance)
+        base_image = render_map(gmap, downloader=downloader_instance)
 
         image = base_image.copy()
         draw = PILImageDrawModule.Draw(image)
