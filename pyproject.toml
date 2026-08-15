@@ -4,62 +4,56 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gopro-tools"
-version = "1.0.0"
-description = "GoPro Telemetry Desktop Applications & Pipelines (gopro2file, gopro2overlay)"
+version = "1.1.6"
+description = "Zentrale Konstanten für die GoPro-GUI."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "GPL-3.0-or-later" }
+license = { text = "MIT" }
 authors = [
     { name = "RalfPeter", email = "ralfpeter.bergheim@gmail.com" }
 ]
-keywords = [
-    "gopro",
-    "telemetry",
-    "overlay",
-    "gui",
-    "pyside6",
-    "ffmpeg",
-    "gpmf"
-]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: End Users/Desktop",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Multimedia :: Video"
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-
-# Abhängigkeiten: Das eigene Framework gpmf-tools sowie PySide6
 dependencies = [
-    "gopro-overlay @ git+https://github.com/RalfPeter/gopro-overlay-patched.git@main",
-    "gpmf-tools",
-    "PySide6"
+    "folium",
+    "geotiler",
+    "gopro-overlay @ git+https://github.com/RalfPeter/gopro-overlay-patched.git",
+    "gpxpy",
+    "lxml",
+    "nest_asyncio",
+    "numpy",
+    "overpy",
+    "pandas",
+    "Pillow",
+    "pyexiv2",
+    "PySide6",
+    "PyYAML",
+    "requests",
+    "rpg_geo",
+    "rpg_gpmf",
+    "rpg_gpx",
+    "rpg_gui",
+    "rpg_overlay",
+    "rpg_utils",
+    "scipy",
+    "shiboken6",
+    "tzlocal"
 ]
 
 [project.urls]
 Homepage = "https://github.com/RalfPeter/gopro-tools"
-Documentation = "https://github.com/RalfPeter/gopro-tools#readme"
 Repository = "https://github.com/RalfPeter/gopro-tools.git"
-"Framework Suite (gpmf-tools)" = "https://github.com/RalfPeter/gpmf-tools"
-
-# Konsolen- und GUI-Startbefehle für das System
-[project.scripts]
-# GUI Einstiegspunkte
-gopro2file = "gui_gopro2file:main"
-gopro2overlay = "gui_gopro2overlay:main"
-
-# CLI Einstiegspunkte
-prg-gopro2file = "prg_gopro2file:main"
-prg-gopro2overlay = "prg_gopro2overlay:main"
-prg-desc2gpx = "prg_desc2gpx:main"
-prg-gopro2gpmf = "prg_gopro2gpmf:main"
-prg-gpmf2gpx = "prg_gpmf2gpx:main"
-prg-gpx2map = "prg_gpx2map:main"
+Issues = "https://github.com/RalfPeter/gopro-tools/issues"
 
 [tool.setuptools.packages.find]
-where = [".", "src"]
-
-[tool.setuptools.package-data]
-"*" = ["*.ico"]
+where = ["src"]

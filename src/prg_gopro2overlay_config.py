@@ -138,7 +138,7 @@ class OverlayParameters(BaseParameters):
 
         # 6. Gruppe: Layout
         layout = parser.add_argument_group("Layout", "Controlling layout")
-        layout.add_argument(f"--{F.layout}", choices=["default", "speed-awareness", "xml"], default=class_defaults[F.layout], help="Choose graphics layout")
+        layout.add_argument(f"--{F._layout}", choices=["default", "speed-awareness", "xml"], default=class_defaults[F._layout], help="Choose graphics layout")
         layout.add_argument(f"--{F.layout_xml}", type=Path, help="Use XML File for layout", default=class_defaults[F.layout_xml])
         layout.add_argument(f"--{F.exclude}", nargs="+", help="exclude named component (will include all others)", default=class_defaults[F.exclude])
         layout.add_argument(f"--{F.include}", nargs="+", help="include named component (will exclude all others)", default=class_defaults[F.include])

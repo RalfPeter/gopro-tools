@@ -89,5 +89,3 @@ python gui_gopro2overlay.py
 ## 📄 Lizenz
 
 Dieses Projekt ist unter der **GNU General Public License v3 (GPLv3)** lizenziert.
-
-```
